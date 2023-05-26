@@ -1,23 +1,19 @@
 import { useState } from 'react'
 import './App.css'
 
-function Input(){
-  return (<input/>
-  )
-}
+function Input(props){
 
-function List(){
-  return(<ul>
-    <li>first item</li>
-  </ul>)
+  const [text , setText] =  useState('');
+
+  return (<input onChange={()=>{ setText()}}>{}</input>
+  )
 }
 
 function App() {
   return (
-    <div>
+    <>
       <Input></Input>
-      <List></List>
-    </div>
+    </>
     
   )
 }
