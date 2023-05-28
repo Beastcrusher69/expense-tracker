@@ -1,33 +1,42 @@
 import { useState } from 'react'
 import './App.css'
 
-let initArr = ['',''];
+let initArr = ['','',['','']];
+let displayContent = "";
 
 function Wrap(){
 
 let [Arr , setArr] =  useState(initArr);
 
-  function handleChange(e,i){
+  function handleChange1(e){
 
-    if(i=1){
-      // setArr([e.target.value,Arr[1]]);
-      console.log('1')
-    }
-    else{
-      // setArr([Arr[0],e.target.value]);
-      console.log('2')
+      setArr([e.target.value,Arr[1],Arr[2]]);
+      console.log("1>>" + Arr[2]);
 
-    }
   }
+
+  function handleChange2(e){
+
+    setArr([Arr[0],e.target.value,Arr[2]]);
+    console.log("2>>" + Arr[2]);
+
+}
+  
 
   function handleClick(){
     console.log('clicked');
+
+    setArr([Arr[0],Arr[1],[Arr[0],Arr[1]]]);
+    displayContent = displayContent + "<p>{Arr[2]}</p>";
+
+    console.log("3>>" + Arr[2]);
+
   }
 
   return(
     <>
-     <Input1 handleChange={handleChange}/>
-     <Input1 handleChange={handleChange}/>
+     <Input1 handleChange1={handleChange1}/>
+     <Input2 handleChange2={handleChange2}/>
      <Button handleClick={handleClick}/> 
     <Display Arr={Arr}/>
     </>
@@ -38,13 +47,13 @@ let [Arr , setArr] =  useState(initArr);
 
 function Input1(props){
 
-  return (<input onChange={()=>{props.handleChange(1)}} id="#purpose"/>
+  return (<input onChange={props.handleChange1} id="#purpose"/>
   )
 }
 
 function Input2(props){
 
-  return (<input onChange={()=>{props.handleChange(2)}} id="expense"/>
+  return (<input onChange={props.handleChange2} id="expense"/>
   )
 }
 
@@ -56,8 +65,12 @@ function Button(props){
 
 function Display(props){
 
-  return (<p>[{props.Arr[0]},{props.Arr[1]}]</p>
-  )
+  return ( 
+    <>
+    {displayContent}
+
+    </>
+    )
 }
 
 
