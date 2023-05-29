@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-let initArr = ['','',['','']];
+let initArr = ['','',['first','value'],''];
 let displayContent = "";
 
 function Wrap(){
@@ -10,28 +10,31 @@ let [Arr , setArr] =  useState(initArr);
 
   function handleChange1(e){
 
-      setArr([e.target.value,Arr[1],Arr[2]]);
-      console.log("1>>" + Arr[2]);
-
+      setArr([e.target.value,Arr[1],Arr[2],Arr[3]]);
   }
+
 
   function handleChange2(e){
 
-    setArr([Arr[0],e.target.value,Arr[2]]);
-    console.log("2>>" + Arr[2]);
+    setArr([Arr[0],e.target.value,Arr[2],Arr[3]]);
 
 }
-  
 
   function handleClick(){
-    console.log('clicked');
 
-    setArr([Arr[0],Arr[1],[Arr[0],Arr[1]]]);
-    displayContent = displayContent + "<p>{Arr[2]}</p>";
 
-    console.log("3>>" + Arr[2]);
+    setArr([Arr[0],Arr[1],[Arr[0],Arr[1]],Arr[3]]);
+    displayContentFun();
+  }
+  
+  console.log(Arr);
+  function displayContentFun(){
+
+    let newContent = Arr[3] + "<tr><td>" + Arr[0] + "</td><td> " + Arr[1] + "</td></tr>";
+    setArr([Arr[0],Arr[1],Arr[2],newContent]);
 
   }
+  console.log(Arr);
 
   return(
     <>
@@ -66,10 +69,9 @@ function Button(props){
 function Display(props){
 
   return ( 
-    <>
-    {displayContent}
+    < div dangerouslySetInnerHTML = {{ __html : "<table>" + props.Arr[3] + "</table>"}}>
 
-    </>
+    </div>
     )
 }
 
