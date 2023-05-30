@@ -37,12 +37,15 @@ let [Arr , setArr] =  useState(initArr);
   console.log(Arr);
 
   return(
-    <>
-     <Input1 handleChange1={handleChange1}/>
+    <div id="whole-wrapper">
+    <div id="#input-wrap">
+    <Input1 handleChange1={handleChange1}/>
      <Input2 handleChange2={handleChange2}/>
      <Button handleClick={handleClick}/> 
+    </div>
+     
     <Display Arr={Arr}/>
-    </>
+    </div>
    
   )
 
@@ -62,7 +65,7 @@ function Input2(props){
 
 function Button(props){
 
-  return (<button onClick={props.handleClick}/>
+  return (<button id="input-button" onClick={props.handleClick}/>
   )
 }
 
