@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-let initArr = ['','',['first','value'],''];
-let displayContent = "";
+let initArr = ['','',['first','value'],'<tr><th>purpose of expense</th><th>amount</th></tr>'];
 
 function Wrap(){
 
@@ -34,11 +33,10 @@ let [Arr , setArr] =  useState(initArr);
     setArr([Arr[0],Arr[1],Arr[2],newContent]);
 
   }
-  console.log(Arr);
 
   return(
     <div id="whole-wrapper">
-    <div id="#input-wrap">
+    <div id="input-wrap">
     <Input1 handleChange1={handleChange1}/>
      <Input2 handleChange2={handleChange2}/>
      <Button handleClick={handleClick}/> 
