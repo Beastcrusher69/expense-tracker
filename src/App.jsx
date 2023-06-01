@@ -63,7 +63,7 @@ function Input2(props){
 
 function Button(props){
 
-  return (<button id="input-button" onClick={props.handleClick}/>
+  return (<button id="input-button" onClick={props.handleClick}>Enter</button>
   )
 }
 
