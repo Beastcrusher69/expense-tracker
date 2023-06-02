@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 
-let initArr = ['','',['first','value'],'<tr><th>purpose of expense</th><th>amount</th></tr>'];
+let tableRows=[<tr><th>purpose of expense</th><th>amount</th></tr>]
+let initArr = ['','',['first','value'],tableRows];
 
 function Wrap(){
 
@@ -29,8 +30,8 @@ let [Arr , setArr] =  useState(initArr);
   console.log(Arr);
   function displayContentFun(){
 
-    let newContent = Arr[3] + "<tr><td>" + Arr[0] + "</td><td> " + Arr[1] + "</td></tr>";
-    setArr([Arr[0],Arr[1],Arr[2],newContent]);
+    Arr[3].push(<tr><td> {Arr[0]} </td> <td> {Arr[1]}</td></tr>);
+    setArr([Arr[0],Arr[1],Arr[2],Arr[3]]);
 
   }
 
@@ -70,8 +71,10 @@ function Button(props){
 function Display(props){
 
   return ( 
-    < div dangerouslySetInnerHTML = {{ __html : "<table>" + props.Arr[3] + "</table>"}}>
-
+    < div>
+    <table>
+    {props.Arr[3]}
+    </table>
     </div>
     )
 }
