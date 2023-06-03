@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-let tableRows=[<tr><th>purpose of expense</th><th>amount</th></tr>]
+let tableRows=[]
 let initArr = ['','',['first','value'],tableRows];
 
 function Wrap(){
@@ -26,14 +26,31 @@ let [Arr , setArr] =  useState(initArr);
     setArr([Arr[0],Arr[1],[Arr[0],Arr[1]],Arr[3]]);
     displayContentFun();
   }
+
+  function deleteRow(e){
+    
+    let newArroftr = Arr[3].filter((elem)=>{
+      return (elem.key !== e); 
+    });
+    console.log(newArroftr);
+
+    setArr(Arr[0],Arr[1],Arr[2],newArroftr);
+  }
   
-  console.log(Arr);
+
+  // console.log(Arr);
   function displayContentFun(){
 
-    Arr[3].push(<tr><td> {Arr[0]} </td> <td> {Arr[1]}</td></tr>);
+    let keyVar = "'" + Arr[3].length + "'";
+    // console.log(keyVar);
+    Arr[3].push(<tr key={keyVar}><td>{Arr[0]}</td><td>{Arr[1]}</td><td><button className="delete" key={keyVar} onClick={()=>{deleteRow(keyVar)}}></button></td></tr>);
     setArr([Arr[0],Arr[1],Arr[2],Arr[3]]);
 
   }
+
+  console.log("list>>");
+
+  console.log(Arr[3]);
 
   return(
     <div id="whole-wrapper">
@@ -42,7 +59,6 @@ let [Arr , setArr] =  useState(initArr);
      <Input2 handleChange2={handleChange2}/>
      <Button handleClick={handleClick}/> 
     </div>
-     
     <Display Arr={Arr}/>
     </div>
    
@@ -73,7 +89,12 @@ function Display(props){
   return ( 
     < div>
     <table>
-    {props.Arr[3]}
+      <thead>
+      <tr><th>purpose of expense</th><th>amount</th></tr>
+      </thead>
+      <tbody>
+      {props.Arr[3]}
+      </tbody>
     </table>
     </div>
     )
