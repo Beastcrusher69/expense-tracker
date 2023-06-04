@@ -71,7 +71,17 @@ table{
 th,td{
     padding:8px;
     border:1px solid black;
+    width:40%;
 }
+
+.button-cell{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    border:none;
+}
+
+
 
 @font-face{
     font-family:expense-tracker;
@@ -102,7 +112,11 @@ header{
 
 .delete{
     height:20px;
-    width:40px;
-    background-color: red;
+    width:min(60%,80px);
+    background-color: rgb(224, 75, 75);
+    cursor:pointer;
+    border:none;
+    border-radius:5px;
+    color:white;
 }
 

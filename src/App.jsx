@@ -32,6 +32,7 @@ let [Arr , setArr] =  useState(initArr);
     let newArroftr = Arr[3].filter((elem)=>{
       return (elem.key !== e); 
     });
+    console.log("newArroftr>>")
     console.log(newArroftr);
 
     setArr(Arr[0],Arr[1],Arr[2],newArroftr);
@@ -42,14 +43,14 @@ let [Arr , setArr] =  useState(initArr);
   function displayContentFun(){
 
     let keyVar = "'" + Arr[3].length + "'";
-    // console.log(keyVar);
-    Arr[3].push(<tr key={keyVar}><td>{Arr[0]}</td><td>{Arr[1]}</td><td><button className="delete" key={keyVar} onClick={()=>{deleteRow(keyVar)}}></button></td></tr>);
+    console.log(keyVar);
+    console.log(typeof(keyVar))
+    Arr[3].push(<tr key={Arr[3].length}><td>{Arr[3].length}</td><td>{Arr[1]}</td><td className="button-cell"><button className="delete" key={Arr[3].length} onClick={()=>{deleteRow(keyVar)}}>delete</button></td></tr>);
     setArr([Arr[0],Arr[1],Arr[2],Arr[3]]);
 
   }
 
   console.log("list>>");
-
   console.log(Arr[3]);
 
   return(
@@ -90,7 +91,7 @@ function Display(props){
     < div>
     <table>
       <thead>
-      <tr><th>purpose of expense</th><th>amount</th></tr>
+      <tr><th>purpose of expense</th><th>amount</th><th></th></tr>
       </thead>
       <tbody>
       {props.Arr[3]}
