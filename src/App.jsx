@@ -1,75 +1,13 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import './App.css'
 
 let tableRows=[]
-let initArr = ['','',['first','value'],tableRows];
-
-function Wrap(){
-
-let [Arr , setArr] =  useState(initArr);
-
-  function handleChange1(e){
-
-      setArr([e.target.value,Arr[1],Arr[2],Arr[3]]);
-  }
-
-
-  function handleChange2(e){
-
-    setArr([Arr[0],e.target.value,Arr[2],Arr[3]]);
-
-}
-
-  function handleClick(){
-
-
-    setArr([Arr[0],Arr[1],[Arr[0],Arr[1]],Arr[3]]);
-    displayContentFun();
-  }
-
-  function deleteRow(e){
-    
-    let newArroftr = Arr[3].filter((elem)=>{
-      return (elem.key !== e); 
-    });
-    console.log("newArroftr>>")
-    console.log(newArroftr);
-
-    setArr(Arr[0],Arr[1],Arr[2],newArroftr);
-  }
-  
-
-  // console.log(Arr);
-  function displayContentFun(){
-
-    let keyVar = "'" + Arr[3].length + "'";
-    console.log(keyVar);
-    console.log(typeof(keyVar))
-    Arr[3].push(<tr key={Arr[3].length}><td>{Arr[3].length}</td><td>{Arr[1]}</td><td className="button-cell"><button className="delete" key={Arr[3].length} onClick={()=>{deleteRow(keyVar)}}>delete</button></td></tr>);
-    setArr([Arr[0],Arr[1],Arr[2],Arr[3]]);
-
-  }
-
-  console.log("list>>");
-  console.log(Arr[3]);
-
-  return(
-    <div id="whole-wrapper">
-    <div id="input-wrap">
-    <Input1 handleChange1={handleChange1}/>
-     <Input2 handleChange2={handleChange2}/>
-     <Button handleClick={handleClick}/> 
-    </div>
-    <Display Arr={Arr}/>
-    </div>
-   
-  )
-
-}
+let initArr = ['jay','kapadia',tableRows];
+let keyVar = 1;
 
 function Input1(props){
 
-  return (<input onChange={props.handleChange1} id="#purpose"/>
+  return (<input onChange={props.handleChange1} id="purpose"/>
   )
 }
 
@@ -80,8 +18,8 @@ function Input2(props){
 }
 
 function Button(props){
-
-  return (<button id="input-button" onClick={props.handleClick}>Enter</button>
+  
+  return (<button id="input-button" onClick={props.handleClick} onKeyDown={props.handleKeyDown}>Enter</button>
   )
 }
 
@@ -94,13 +32,74 @@ function Display(props){
       <tr><th>purpose of expense</th><th>amount</th><th></th></tr>
       </thead>
       <tbody>
-      {props.Arr[3]}
+      {props.Arr[2]}
       </tbody>
     </table>
     </div>
     )
 }
 
+function Wrap(){
+
+let [Arr , setArr] =  useState(initArr);
+
+  function handleChange1(e){
+
+      setArr([e.target.value,Arr[1],Arr[2]]);
+  }
+
+  function handleChange2(e){
+
+    setArr([Arr[0],e.target.value,Arr[2]]);
+
+}
+
+function handleClick(){
+  
+  Arr[2].push(<tr key={keyVar}><td>{Arr[0]}</td><td>{Arr[1]}</td><td className="button-cell"><button className="delete" key={keyVar} id={keyVar} onClick={(e)=>{deleteRow(e)}}>delete</button></td></tr>);
+    setArr([Arr[0],Arr[1],Arr[2]]);
+
+    keyVar++;
+}
+function handleKeyDown(e){
+  console.log('yes');
+  if(e.code == 'Enter')
+  handleClick();
+}
+
+useEffect(() => {
+  document.addEventListener('keydown', handleKeyDown);
+
+  return () => {
+    document.removeEventListener('keydown', handleKeyDown);
+  };
+}, []);
+
+  function deleteRow(e){
+
+    let id = e.target.id ;   
+
+    let newArroftr = Arr[2].filter((elem)=>{
+      
+      return (elem.key != id); 
+    });
+   
+    setArr([Arr[0],Arr[1],newArroftr]);
+  }
+
+  return(
+    <div id="whole-wrapper">
+    <div id="input-wrap">
+    <Input1 handleChange1={handleChange1}/>
+     <Input2 handleChange2={handleChange2}/>
+     <Button handleClick={handleClick} handleKeyDown={handleKeyDown}/> 
+    </div>
+    <Display Arr={Arr}/>
+    </div>
+   
+  )
+
+}
 
 function App() {
   return (
