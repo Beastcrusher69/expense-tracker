@@ -5,26 +5,9 @@ let tableRows=[]
 let initArr = ['jay','kapadia',tableRows];
 let keyVar = 1;
 
-function Input1(props){
-
-  return (<input onChange={props.handleChange1} id="purpose"/>
-  )
-}
-
-function Input2(props){
-
-  return (<input onChange={props.handleChange2} id="expense"/>
-  )
-}
-
-function Button(props){
-  
-  return (<button id="input-button" onClick={props.handleClick} onKeyDown={props.handleKeyDown}>Enter</button>
-  )
-}
 
 function Display(props){
-
+let {data}=props;
   return ( 
     < div>
     <table>
@@ -32,48 +15,39 @@ function Display(props){
       <tr><th>purpose of expense</th><th>amount</th><th></th></tr>
       </thead>
       <tbody>
-      {props.Arr[2]}
+        {data.map((d)=>{
+          return <div>{d.purpose}</div>
+        })}
       </tbody>
     </table>
     </div>
     )
 }
 
-function Wrap(){
+function App(){
 
-let [Arr , setArr] =  useState(initArr);
+let [data , setData] =  useState([]);
+let [input , setInput] = useState({purposeValue:null,expenseValue:null})
+//[{purpose:'jay',expense:'200'}]
 
-  function handleChange1(e){
+  function handleSubmit(e){
 
-      setArr([e.target.value,Arr[1],Arr[2]]);
+    console.log(input);
+
+
+    if(input.purposeValue && input.expenseValue){
+    setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
+    }
   }
 
-  function handleChange2(e){
+  function handleKeyDown(e){
 
-    setArr([Arr[0],e.target.value,Arr[2]]);
+    console.log(e.code);
 
-}
-
-function handleClick(){
-  
-  Arr[2].push(<tr key={keyVar}><td>{Arr[0]}</td><td>{Arr[1]}</td><td className="button-cell"><button className="delete" key={keyVar} id={keyVar} onClick={(e)=>{deleteRow(e)}}>delete</button></td></tr>);
-    setArr([Arr[0],Arr[1],Arr[2]]);
-
-    keyVar++;
-}
-function handleKeyDown(e){
-  console.log('yes');
-  if(e.code == 'Enter')
-  handleClick();
-}
-
-useEffect(() => {
-  document.addEventListener('keydown', handleKeyDown);
-
-  return () => {
-    document.removeEventListener('keydown', handleKeyDown);
-  };
-}, []);
+    if(e.code == "Enter"){
+            handleSubmit();
+    }
+  }
 
   function deleteRow(e){
 
@@ -90,24 +64,17 @@ useEffect(() => {
   return(
     <div id="whole-wrapper">
     <div id="input-wrap">
-    <Input1 handleChange1={handleChange1}/>
-     <Input2 handleChange2={handleChange2}/>
-     <Button handleClick={handleClick} handleKeyDown={handleKeyDown}/> 
+      <input  onChange={(e)=>{ e.preventDefault();console.log(e.target.value) ;setInput({...input , purposeValue:e.target.value})}} name="purpose" placeholder='purpose' onKeyDown={handleKeyDown}/>
+      <input  onChange={(e)=>{ e.preventDefault(); console.log(e.target.value) ;setInput({...input ,expenseValue:e.target.value})}} name="expense" placeholder='expense' onKeyDown={handleKeyDown}/>
+
+      <button id="input-button" onClick={handleSubmit} >Enter</button>
     </div>
-    <Display Arr={Arr}/>
+    <Display data={data}/>
     </div>
    
   )
 
 }
 
-function App() {
-  return (
-    <>
-      <Wrap></Wrap>
-    </>
-    
-  )
-}
 
 export default App
