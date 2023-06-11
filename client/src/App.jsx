@@ -33,12 +33,12 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
     })
   })
 
-  useEffect(()=>{
-    fetch("http://localhost:1000/users").then(
-      res => res.json()
-    )
-    .then(d => setData(d))
-  },[])
+  // useEffect(()=>{
+  //   fetch("http://localhost:1000/expense-data").then(
+  //     res => res.json()
+  //   )
+  //   .then(d => setData(d))
+  // })
 
   function handleSubmit(e){
     console.log(input);
@@ -55,11 +55,21 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
   return(
     <div id="whole-wrapper">
-    <div id="input-wrap">
-      <input  onChange={(e)=>{ e.preventDefault() ;setInput({...input , purposeValue:e.target.value})}} name="purpose" placeholder='purpose' />
-      <input  onChange={(e)=>{ e.preventDefault() ;setInput({...input ,expenseValue:e.target.value})}} name="expense" placeholder='expense' />
-      <button id="input-button" onClick={handleSubmit} >Enter</button>
-    </div>
+    <form id="input-wrap" action="/expense-data" method="post">
+      <input  
+              // onChange={(e)=>{ e.preventDefault() ;
+              //  setInput({...input , purposeValue:e.target.value})}} 
+               name="purpose" 
+               placeholder='purpose' />
+      <input  
+                // onChange={(e)=>{ e.preventDefault() ;
+                // setInput({...input ,expenseValue:e.target.value})}} 
+                name="expense" 
+                placeholder='expense' />
+      <button id="input-button" 
+              // onClick={handleSubmit}
+              >Enter</button>
+    </form>
     <Display data={data} handleDelete={handleDelete}/>
     </div>
   )
