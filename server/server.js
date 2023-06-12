@@ -8,7 +8,7 @@ const corsOptions={
     credentials:true,
     optionSuccessStatus:200
 }
-const MONGO_URI = "mongodb+srv://jay:snidbKgn8wuKCjYT@cluster0.gvpezfm.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URI = "mongodb+srv://jaykapadia389:RUtqBkXGWS4ypBLb@cluster0.jwgyx6y.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(MONGO_URI,{ useNewUrlParser : true , useUnifiedTopology : true});
 
@@ -31,21 +31,21 @@ Data.create({ purpose : "bicycle service" , expense : "200"});
 
 app.use(cors(corsOptions));
 
-app.post('/expense-data',(req,res)=>{
+// app.post('/expense-data',(req,res)=>{
 
-    Data.create({purpose : req.body.purpose, expense : req.body.expense});
-    console.log("post");
+//     Data.create({purpose : req.body.purpose, expense : req.body.expense});
+//     console.log("post");
 
-})
+// })
 
-app.get('/expense-data',async (req,res)=>{
+// app.get('/expense-data',async (req,res)=>{
 
-    let dataArr = await Data.find({});
+//     let dataArr = await Data.find({});
 
-    console.log(dataArr);
+//     console.log(dataArr);
     
-    // res.send( )
-});
+//     // res.send( )
+// });
 
 app.listen(port ,()=>{
     console.log("server listening on port ",port)
