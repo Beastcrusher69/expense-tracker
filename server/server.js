@@ -22,7 +22,7 @@ const dataSchema = mongoose.Schema({
 
 const Data = mongoose.model("Data", dataSchema);
 
-Data.create({ purpose : "bicycle service" , expense : "200"});
+// Data.create({ purpose : "bicycle service" , expense : "200"});
 // Data.create({ purpose : "maggi" , expense : "28"});
 // Data.create({ purpose : "top ramen" , expense : "30"});
 // Data.create({ purpose : "bicycle" , expense : "10000"});
@@ -30,22 +30,23 @@ Data.create({ purpose : "bicycle service" , expense : "200"});
 // password => QnQZCMlrObeLyavD
 
 app.use(cors(corsOptions));
+app.use(express.urlencoded({extended : true}));
 
-// app.post('/expense-data',(req,res)=>{
+app.post('/',(req,res)=>{
 
-//     Data.create({purpose : req.body.purpose, expense : req.body.expense});
-//     console.log("post");
+    // Data.create({purpose : req.body.purpose, expense : req.body.expense});
+    console.log("post");
 
-// })
+})
 
-// app.get('/expense-data',async (req,res)=>{
+app.get('/',async (req,res)=>{
 
-//     let dataArr = await Data.find({});
+    // let dataArr = await Data.find({});
 
-//     console.log(dataArr);
+    console.log("get request");
     
-//     // res.send( )
-// });
+    // res.send( )
+});
 
 app.listen(port ,()=>{
     console.log("server listening on port ",port)

@@ -22,16 +22,16 @@ let {data}=props;
 function App(){
 
 let [data , setData] =  useState([]);
-let [input , setInput] = useState({purposeValue:null,expenseValue:null})
+// let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 //[{purpose:'jay',expense:'200'}]
 
-    useEffect(()=>{
-    window.addEventListener('keydown',(e)=>{
-      if(e.code === "Enter"){
-        handleSubmit();
-      }
-    })
-  })
+  //   useEffect(()=>{
+  //   window.addEventListener('keydown',(e)=>{
+  //     if(e.code === "Enter"){
+  //       handleSubmit();
+  //     }
+  //   })
+  // })
 
   // useEffect(()=>{
   //   fetch("http://localhost:1000/expense-data").then(
@@ -41,10 +41,10 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   // })
 
   function handleSubmit(e){
-    console.log(input);
-    if(input.purposeValue && input.expenseValue){
-    setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
-    }
+    console.log("submit");
+    // if(input.purposeValue && input.expenseValue){
+    // setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
+    // }
   }
 
   function handleDelete(deleteData){
@@ -55,7 +55,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
   return(
     <div id="whole-wrapper">
-    <form id="input-wrap" action="/expense-data" method="post">
+    <form id="input-wrap" action="/" method="post">
       <input  
               // onChange={(e)=>{ e.preventDefault() ;
               //  setInput({...input , purposeValue:e.target.value})}} 
@@ -67,7 +67,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
                 name="expense" 
                 placeholder='expense' />
       <button id="input-button" 
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
               >Enter</button>
     </form>
     <Display data={data} handleDelete={handleDelete}/>
