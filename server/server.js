@@ -32,14 +32,14 @@ const Data = mongoose.model("Data", dataSchema);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({extended : true}));
 
-app.post('/',(req,res)=>{
+app.post('/expense-data',(req,res)=>{
 
-    // Data.create({purpose : req.body.purpose, expense : req.body.expense});
-    console.log("post");
+    Data.create({purpose : "jay", expense : "kapadia"});
+    console.log("req>>>>> ",req);
 
 })
 
-app.get('/',async (req,res)=>{
+app.get('/user',async (req,res)=>{
 
     // let dataArr = await Data.find({});
 

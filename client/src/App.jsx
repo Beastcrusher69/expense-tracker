@@ -1,5 +1,8 @@
 import { useState , useEffect} from 'react'
+import axios from 'axios'
 import './App.css'
+
+let url = "http://localhost:1000/expense-data";
 
 function Display(props){
 let {data}=props;
@@ -22,7 +25,7 @@ let {data}=props;
 function App(){
 
 let [data , setData] =  useState([]);
-// let [input , setInput] = useState({purposeValue:null,expenseValue:null})
+let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 //[{purpose:'jay',expense:'200'}]
 
   //   useEffect(()=>{
@@ -40,11 +43,22 @@ let [data , setData] =  useState([]);
   //   .then(d => setData(d))
   // })
 
-  function handleSubmit(e){
+  async function  handleSubmit(e){
     console.log("submit");
-    // if(input.purposeValue && input.expenseValue){
+    e.preventDefault();
+    if(input.purposeValue && input.expenseValue){
     // setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
-    // }
+
+    console.log(input);
+
+    await axios.post(url,input)
+    .then( 
+      console.log("then")
+      )
+    .catch( (err)=>{
+      console.log(err);
+    })
+    }
   }
 
   function handleDelete(deleteData){
@@ -55,15 +69,17 @@ let [data , setData] =  useState([]);
 
   return(
     <div id="whole-wrapper">
-    <form id="input-wrap" action="/" method="post">
+    <form id="input-wrap" 
+    // action="/post" method="post"
+    >
       <input  
-              // onChange={(e)=>{ e.preventDefault() ;
-              //  setInput({...input , purposeValue:e.target.value})}} 
+              onChange={(e)=>{ e.preventDefault() ;
+               setInput({...input , purposeValue:e.target.value})}} 
                name="purpose" 
                placeholder='purpose' />
       <input  
-                // onChange={(e)=>{ e.preventDefault() ;
-                // setInput({...input ,expenseValue:e.target.value})}} 
+                onChange={(e)=>{ e.preventDefault() ;
+                setInput({...input ,expenseValue:e.target.value})}} 
                 name="expense" 
                 placeholder='expense' />
       <button id="input-button" 
