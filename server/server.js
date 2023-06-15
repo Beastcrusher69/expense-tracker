@@ -25,13 +25,6 @@ const dataSchema = mongoose.Schema({
 
 const Data = mongoose.model("Data", dataSchema);
 
-// Data.create({ purpose : "bicycle service" , expense : "200"});
-// Data.create({ purpose : "maggi" , expense : "28"});
-// Data.create({ purpose : "top ramen" , expense : "30"});
-// Data.create({ purpose : "bicycle" , expense : "10000"});
-
-// password => QnQZCMlrObeLyavD
-
 app.use(cors(corsOptions));
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
@@ -58,7 +51,7 @@ app.delete("/expense-data/:id",async(req,res)=>{
 
     let deletedData = await Data.deleteOne({_id : id});
 
-    console.log(deletedData);
+    res.json({"success" : "successfully deleted"})
 
 })
 

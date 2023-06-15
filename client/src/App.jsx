@@ -37,14 +37,12 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   })
 
   useEffect(()=>{
-    axios.get(url).then( (getRes) => {console.log(getRes.data);
+    axios.get(url).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
   },[])
 
   async function  handleSubmit(e){
-    // e.preventDefault();
     if(input.purposeValue && input.expenseValue){
-    // setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
 
     await axios.post(url,{ purpose : input.purposeValue , expense : input.expenseValue})
     .then((postRes) => {
@@ -59,18 +57,17 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   }
 
   function handleDelete(id){
-    // let filteredData = data.filter((d)=>(d.expense != deleteData.expense || d.purpose != deleteData.purpose));
-    // setData(filteredData);
-
-    console.log(id);
-
+  
     axios.delete("http://localhost:1000/expense-data/"+id)
-         .then(res => console.log(res.data))
+         .then((delRes) => {
+          console.log(delRes.data);
+
+          axios.get(url).then( (getRes) => {
+          setData(getRes.data)})})
+
          .catch((err)=>console.log(err));
 
-
   }
-
 
   return(
     <div id="whole-wrapper">
