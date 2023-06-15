@@ -14,7 +14,7 @@ let {data}=props;
       </thead>
       <tbody>
         {data.map((d)=>{
-          return <tr><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d)}}>Delete</button></td></tr>
+          return <tr><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
         })}
       </tbody>
     </table>
@@ -25,53 +25,56 @@ let {data}=props;
 function App(){
 
 let [data , setData] =  useState([]);
-let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 //[{purpose:'jay',expense:'200'}]
+let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
-  //   useEffect(()=>{
-  //   window.addEventListener('keydown',(e)=>{
-  //     if(e.code === "Enter"){
-  //       handleSubmit();
-  //     }
-  //   })
-  // })
+    useEffect(()=>{
+    window.addEventListener('keydown',(e)=>{
+      if(e.code === "Enter"){
+        handleSubmit();
+      }
+    })
+  })
 
-  // useEffect(()=>{
-  //   fetch("http://localhost:1000/expense-data").then(
-  //     res => res.json()
-  //   )
-  //   .then(d => setData(d))
-  // })
+  useEffect(()=>{
+    axios.get(url).then( (getRes) => {console.log(getRes.data);
+      setData(getRes.data)})
+  },[])
 
   async function  handleSubmit(e){
-    console.log("submit");
-    e.preventDefault();
+    // e.preventDefault();
     if(input.purposeValue && input.expenseValue){
     // setData([...data,{purpose:input.purposeValue,expense:input.expenseValue}])
 
-    console.log(input);
+    await axios.post(url,{ purpose : input.purposeValue , expense : input.expenseValue})
+    .then((postRes) => {
+      console.log(postRes.data)
 
-    await axios.post(url,input)
-    .then( 
-      console.log("then")
-      )
-    .catch( (err)=>{
-      console.log(err);
+      axios.get(url).then( (getRes) => {console.log(getRes.data);
+                                        setData(getRes.data)})
+                  
     })
+    .catch( (err)=>console.log({"axios post error" : err}))
     }
   }
 
-  function handleDelete(deleteData){
-    let filteredData = data.filter((d)=>(d.expense != deleteData.expense || d.purpose != deleteData.purpose));
-    setData(filteredData);
+  function handleDelete(id){
+    // let filteredData = data.filter((d)=>(d.expense != deleteData.expense || d.purpose != deleteData.purpose));
+    // setData(filteredData);
+
+    console.log(id);
+
+    axios.delete("http://localhost:1000/expense-data/"+id)
+         .then(res => console.log(res.data))
+         .catch((err)=>console.log(err));
+
+
   }
 
 
   return(
     <div id="whole-wrapper">
-    <form id="input-wrap" 
-    // action="/post" method="post"
-    >
+    <form id="input-wrap">
       <input  
               onChange={(e)=>{ e.preventDefault() ;
                setInput({...input , purposeValue:e.target.value})}} 
