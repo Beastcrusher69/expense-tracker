@@ -23,7 +23,14 @@ const dataSchema = mongoose.Schema({
     versionKey : false
 });
 
+const userSchema = mongoose.Schema({
+    username : "String",
+    password : "String",
+    expenseData : [dataSchema]
+})
+
 const Data = mongoose.model("Data", dataSchema);
+const Users = mongoose.model("Users", userSchema);
 
 app.use(cors(corsOptions));
 app.use(express.urlencoded({extended : true}));
