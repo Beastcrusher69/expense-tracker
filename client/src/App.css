@@ -14,15 +14,6 @@ body{
     width : 100%;
     height:100vh;
     font-family: sans-serif;
-    
-}
-
-#root{
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction: column;
-    align-items:center;
 }
 
 #whole-wrapper{
@@ -41,6 +32,7 @@ body{
     border: none;
     cursor:pointer;
     color:white;
+    height:30px;
 }
 
 #input-button:active{
@@ -50,6 +42,8 @@ body{
 input{
     width:38%;
     padding:8px ;
+    height:30px;
+    border:1px solid grey;
 
 }
 
@@ -71,18 +65,16 @@ table{
 th,td{
     padding:8px;
     border:1px solid black;
+    text-align: center;
+}
+
+td{
     width:40%;
 }
 
-.button-cell{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    padding:0 auto;
-    border:none;
+.serial-cell{
+    width:10%;
 }
-
-
 
 @font-face{
     font-family:expense-tracker;
@@ -120,5 +112,7 @@ header{
     border-radius:5px;
     color:white;
     margin:auto;
+    display:block;
+    content:"rencnre";
 }
 

@@ -6,15 +6,17 @@ let url = "http://localhost:1000/expense-data";
 
 function Display(props){
 let {data}=props;
+let serial = 0;
   return ( 
     < div>
     <table>
       <thead>
-      <tr><th>purpose of expense</th><th>amount</th><th></th></tr>
+      <tr><th>Sr.no.</th><th>purpose of expense</th><th>amount</th><th></th></tr>
       </thead>
       <tbody>
         {data.map((d)=>{
-          return <tr><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
+            serial++;
+          return <tr><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
         })}
       </tbody>
     </table>
@@ -42,6 +44,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   },[])
 
   async function  handleSubmit(e){
+    e.preventDefault();
     if(input.purposeValue && input.expenseValue){
 
     await axios.post(url,{ purpose : input.purposeValue , expense : input.expenseValue})
@@ -70,6 +73,8 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   }
 
   return(
+    <>
+    <header><span id="expense">Expense</span><span id="tracker">Tracker</span></header>
     <div id="whole-wrapper">
     <form id="input-wrap">
       <input  
@@ -88,6 +93,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
     </form>
     <Display data={data} handleDelete={handleDelete}/>
     </div>
+    </>
   )
 }
 
