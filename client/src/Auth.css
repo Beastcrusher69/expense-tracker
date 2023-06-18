@@ -1,14 +1,45 @@
-body{
+#auth-wrap{
     display:grid;
     place-items:center;
+    height:100%;
 }
 
 #box{
     width:300px;
+    padding:25px;
+    background-color:white;
+    border-radius:8px;
+    box-shadow:0px 0px 10px 0px;
     
 }
 
-form{
+#expense-tracker-p{
+    font-family:ChampagneLimousines;
+    color:#74BE23;
+    font-size:25px;
+
+}
+
+#auth-form{
     display:flex;
     flex-direction:column;
+}
+
+.auth-input,#button-span{
+    width:100%;
+    margin:10px 0;
+}
+
+#button-span{
+    display:flex;
+    justify-content: space-between;
+}
+
+.auth-buttons{
+    width:48%;
+    height:30px;
+    border:none;
+    border-radius: 8px;
+    background-color:#74BE23;
+    color:white;
 }

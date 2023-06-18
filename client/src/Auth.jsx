@@ -3,17 +3,19 @@ import './Auth.css'
 
 function Auth(){
     return(
+        <div id="auth-wrap">
         <div id="box">
-            <p>Expense Tracker</p>
-            <form>
-                <input type="text"></input>
-                <input type="text"></input>
-                <span id="buttons">
-                <button>Login</button>
-                <button>Sign Up</button>
+            <p id="expense-tracker-p">Expense Tracker</p>
+            <form id="auth-form">
+                <input class="auth-input" type="text" placeholder="username"></input>
+                <input class="auth-input" type="text" placeholder="password"></input>
+                <span id="button-span">
+                <button class="auth-buttons">Login</button>
+                <button class="auth-buttons">Sign Up</button>
                 </span>
                 
             </form>
+        </div>
         </div>
     )
 }
