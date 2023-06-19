@@ -62,6 +62,12 @@ app.delete("/expense-data/:id",async(req,res)=>{
 
 })
 
+app.post("/signup",(res,req)=>{
+    let cred = req.data;
+
+    console.log(req.body);
+})
+
 app.listen(port ,()=>{
     console.log("server listening on port ",port)
 })
