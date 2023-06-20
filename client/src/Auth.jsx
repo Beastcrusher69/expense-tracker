@@ -17,18 +17,18 @@ function Auth(){
         }
     }
 
-    function signUp(){
+    function signUp(e){
 
-        axios.post("http://localhost:1000/signup",cred)
-             .then(res => console.log(res))
-             .catch((err) => console.log(err));   
+        e.preventDefault();
+
+         axios.post("http://localhost:1000/signup",cred)
+             .then(res => console.log(res.data))
+             .catch((err) => console.log("signup err>> ",err));   
         
     }
 
     function login(){
     }
-
-    console.log(cred);
 
     return(
         <div id="auth-wrap">

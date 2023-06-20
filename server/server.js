@@ -48,7 +48,6 @@ app.get('/expense-data',async (req,res)=>{
 
     let dataArr = await Data.find({});
 
-    console.log("dataArr>>>> ",dataArr);
     res.send(dataArr);
 
 });
@@ -56,16 +55,22 @@ app.get('/expense-data',async (req,res)=>{
 app.delete("/expense-data/:id",async(req,res)=>{
     let id = req.params.id;
 
-    let deletedData = await Data.deleteOne({_id : id});
+     await Data.deleteOne({_id : id});
 
     res.json({"success" : "successfully deleted"})
 
 })
 
-app.post("/signup",(res,req)=>{
-    let cred = req.data;
+app.post("/signup",(req,res)=>{
+
+    let cred = req.body; 
 
     console.log(req.body);
+
+    res.redirect("http://localhost:5173/expense-tracker")
+
+    // res.json({"success" : "data received"});
+
 })
 
 app.listen(port ,()=>{
