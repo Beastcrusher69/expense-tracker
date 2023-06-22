@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import {useState} from "react";
 import './Auth.css'
 import axios from "axios";

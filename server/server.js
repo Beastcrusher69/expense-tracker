@@ -68,7 +68,7 @@ app.post("/signup",(req,res)=>{
     console.log(req.body);
 
     res.redirect("http://localhost:5173/expense-tracker")
-
+       
     // res.json({"success" : "data received"});
 
 })

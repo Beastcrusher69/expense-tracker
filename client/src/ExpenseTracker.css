@@ -78,17 +78,17 @@ td{
 
 @font-face{
     font-family:expense-tracker;
-    src:url(/fonts/expense-tracker-font.ttf)
+    src:url(./public/fonts/expense-tracker-font.ttf)
 }
 
 @font-face{
     font-family:ChampagneLimousines;
-    src:url(/fonts/Champagne&LimousinesBold.ttf)
+    src:url(./public/fonts/Champagne&LimousinesBold.ttf)
 
 }
 @font-face{
     font-family:ChampagneLimousinesBold;
-    src:url(/fonts/Champagne&Limousines.ttf)
+    src:url(./public/fonts/Champagne&Limousines.ttf)
 }
 
 header{
