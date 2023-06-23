@@ -61,15 +61,56 @@ app.delete("/expense-data/:id",async(req,res)=>{
 
 })
 
-app.post("/signup",(req,res)=>{
+app.post("/signup",async (req,res)=>{
 
     let cred = req.body; 
+    let username = cred.username;
+    let password = cred.password;
 
-    console.log(req.body);
+    if(!username || !password){
+        res.send("username or password is missing");
+        return;
+    }
 
-    res.redirect("http://localhost:5173/expense-tracker")
-       
-    // res.json({"success" : "data received"});
+    let ExistingUser = await Users.findOne({username});
+    console.log("ExistingUser>>>> ",ExistingUser)
+    
+    if(ExistingUser){
+        res.send("username already exists");
+        return;
+    }
+    
+    Users.create({
+        username , password , expenseData : []
+    })
+
+    res.send("true");
+
+})
+
+app.post("/login" , async (req,res)=>{
+
+    let cred = req.body; 
+    let username = cred.username;
+    let password = cred.password;
+
+    if(!username || !password){
+        res.send("username or password is missing");
+        return;
+    }
+
+    let User = await Users.findOne(cred);
+
+    if(!User){
+        res.send("username or password is incorrect")
+        return;
+    }
+    
+   
+    res.send("true");
+    
+
+
 
 })
 

@@ -4,6 +4,8 @@ import './ExpenseTracker.css'
 
 let url = "http://localhost:1000/expense-data";
 
+// if ( state == true){...
+
 function Display(props){
 let {data}=props;
 let serial = 0;
@@ -17,7 +19,7 @@ let serial = 0;
       <tbody>
         {data.map((d)=>{
             serial++;
-          return <tr><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
+          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
         })}
       </tbody>
     </table>

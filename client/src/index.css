@@ -5,3 +5,16 @@
     align-items:center;
     height:100vh;
 }
+
+#notfound-div{
+    height:100%;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+#notfound{
+    height: 50%;
+    display: block;
+}
