@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -8,9 +9,11 @@ const corsOptions={
     credentials:true,
     optionSuccessStatus:200
 }
-const MONGO_URI = "mongodb+srv://jaykapadia389:RUtqBkXGWS4ypBLb@cluster0.jwgyx6y.mongodb.net/expensesDB?retryWrites=true&w=majority";
 
-mongoose.connect(MONGO_URI,
+const uri = process.env.MONGO_URI;
+console.log("uri>>> ",uri)
+
+mongoose.connect(uri,
                 { useNewUrlParser : true , useUnifiedTopology : true},)
                 .then( console.log("connected"))
                 .catch((err)=> console.log(err));
