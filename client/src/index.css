@@ -18,3 +18,207 @@
     height: 50%;
     display: block;
 }
+
+/* ExpenseTracker */
+
+:root{
+    --green1: #74BE23;
+    --green2:#B2FF5E;
+    --green3:#DFFFBD;
+    }
+    
+    *{
+        margin: 0;
+        padding : 0;
+        box-sizing:border-box;
+    }
+    
+    body{
+        width : 100%;
+        height:100vh;
+        font-family: sans-serif;
+    }
+    
+    #whole-wrapper{
+        width : 80%;
+        padding-top:8vh;
+    }
+    
+    #input-button,input{
+        height : 25px;
+        border-radius: 5px;
+    }
+    
+    #input-button{
+        width:18%;
+        background-color: var(--green1);
+        border: none;
+        cursor:pointer;
+        color:white;
+        height:30px;
+    }
+    
+    #input-button:active{
+        background-color:var(--green2);
+    }
+    
+    input{
+        width:38%;
+        padding:8px ;
+        height:30px;
+        border:1px solid grey;
+    
+    }
+    
+    #input-wrap{
+        display:flex;
+        justify-content: space-between;
+        width:100%;
+    }
+    
+    table{
+        width:100%;
+        margin-top: 8vh;
+        font-size:15px;
+        border-collapse:collapse;
+        border:1px solid black;
+    
+    }
+    
+    th,td{
+        padding:8px;
+        border:1px solid black;
+        text-align: center;
+    }
+    
+    td{
+        width:40%;
+    }
+    
+    .serial-cell{
+        width:10%;
+    }
+    
+    @font-face{
+        font-family:expense-tracker;
+        src:url(./public/fonts/expense-tracker-font.ttf)
+    }
+    
+    @font-face{
+        font-family:ChampagneLimousines;
+        src:url(./public/fonts/Champagne&LimousinesBold.ttf)
+    
+    }
+    @font-face{
+        font-family:ChampagneLimousinesBold;
+        src:url(./public/fonts/Champagne&Limousines.ttf)
+    }
+    
+    header{
+        width:100%;
+        padding:30px 8% 30px;
+        font-size:45px;
+        background-image: linear-gradient(135deg,var(--green1),var(--green2) );
+        color:white;
+        font-weight:500;
+        /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  */
+        font-family:ChampagneLimousines;
+    
+    }
+    
+    .delete{
+        height:20px;
+        width:min(60%,80px);
+        background-color: rgb(224, 75, 75);
+        cursor:pointer;
+        border:none;
+        border-radius:5px;
+        color:white;
+        margin:auto;
+        display:block;
+        content:"rencnre";
+    }
+
+    /* Auth */
+
+    #auth-wrap{
+        display:grid;
+        place-items:center;
+        height:100%;
+    }
+    
+    #box{
+        width:300px;
+        padding:25px;
+        background-color:white;
+        border-radius:8px;
+        box-shadow:rgb(132, 129, 129) 0px 0px 10px 2px;
+        
+    }
+    
+    #expense-tracker-p{
+        font-family:ChampagneLimousines;
+        color:#74BE23;
+        font-size:28px;
+    
+    }
+    
+    #auth-form{
+        display:flex;
+        flex-direction:column;
+    }
+
+    .auth-input{
+        height:40px;
+        border-color:rgb(179, 169, 169);
+    }
+
+    .auth-input,#button-span{
+        width:100%;
+        margin:4px 0;
+    }
+    .auth-input:first-of-type{
+        margin-top:20px;
+    }
+    
+    #button-span{
+        display:flex;
+        justify-content: space-between;
+    }
+    
+    .auth-buttons{
+        width:48%;
+        height:40px;
+        border:none;
+        border-radius: 8px;
+        background-color:#74BE23;
+        color:white;
+        font-size:16px;
+    }
+
+    .auth-buttons:hover{
+        cursor:pointer;
+    }
+
+    .auth-buttons:active{
+        background-color: var(--green2);
+    }
+
+    #error{
+        padding:0px 8px;
+        margin:2px;
+        color:rgb(216, 70, 70);
+        font-size:12px;
+        background-color: #ebede9;
+        border-radius: 5px;
+        height:22px;
+        line-height:22px;
+    }
+
+    #error-logo{
+        position:relative;
+        top:2px;
+        right:3px;
+    }
+    
+    

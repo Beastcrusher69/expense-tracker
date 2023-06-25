@@ -1,15 +1,17 @@
 import React from "react";
 import {useState} from "react";
-import './Auth.css'
+import './index.css'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import App from "./App.jsx"; 
+import { BiErrorCircle } from "react-icons/bi"
 
 function Auth(){
 
     let navigate = useNavigate();
 
     let [cred, setCred] = useState({username : null , password : null});
+    let [error,setError] = useState("");
+    let [display, setDisplay] = useState({"display":"none"});
 
     function handleChange(e,i){
 
@@ -29,6 +31,11 @@ function Auth(){
                 if(res.data == true){
                     navigate('/expense-tracker')
                 } 
+                else{
+
+                    setError(res.data);
+                    setDisplay({"display" : "block" });
+                }
              }) 
              .catch((err) => console.log("signup err>> ",err));   
         
@@ -43,10 +50,14 @@ function Auth(){
                 if(res.data == true){
                 navigate('/expense-tracker')
             }
+            else{
+
+                setError(res.data);
+                setDisplay({"display" : "block" });
+
+            }
             })  
              .catch((err) => console.log("signup err>> ",err)); 
-
-
 
     }
 
@@ -57,6 +68,7 @@ function Auth(){
             <form id="auth-form">
                 <input className="auth-input" type="text" placeholder="username" onChange={(e)=>{handleChange(e,"1")}}></input>
                 <input className="auth-input" type="text" placeholder="password" onChange={(e)=>{handleChange(e,"2")}}></input>
+                <p style={display} id="error"><span id="error-logo"><BiErrorCircle/></span>{error}</p>
                 <span id="button-span">
                 <button className="auth-buttons" onClick={login}>Login</button>
                 <button className="auth-buttons" onClick={signUp}>Sign Up</button>

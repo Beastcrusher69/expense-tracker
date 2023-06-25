@@ -1,4 +1,5 @@
 require("dotenv").config();
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -71,7 +72,7 @@ app.post("/signup",async (req,res)=>{
     let password = cred.password;
 
     if(!username || !password){
-        res.send("username or password is missing");
+        res.send("please fill the fields");
         return;
     }
 
@@ -96,9 +97,10 @@ app.post("/login" , async (req,res)=>{
     let cred = req.body; 
     let username = cred.username;
     let password = cred.password;
+    let payload = { username };
 
     if(!username || !password){
-        res.send("username or password is missing");
+        res.send("please fill the fields");
         return;
     }
 
@@ -108,13 +110,11 @@ app.post("/login" , async (req,res)=>{
         res.send("username or password is incorrect")
         return;
     }
+
+    let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
     
-   
-    res.send("true");
+    res.json({ token });
     
-
-
-
 })
 
 app.listen(port ,()=>{

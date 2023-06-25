@@ -1,10 +1,8 @@
 import { useState , useEffect} from 'react'
 import axios from 'axios'
-import './ExpenseTracker.css'
+import './index.css'
 
 let url = "http://localhost:1000/expense-data";
-
-// if ( state == true){...
 
 function Display(props){
 let {data}=props;
