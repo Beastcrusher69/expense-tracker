@@ -2,12 +2,10 @@ import React from "react";
 import {useState} from "react";
 import './index.css'
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { BiErrorCircle } from "react-icons/bi"
 
-function Auth(){
+function SignUpForm(){
 
-    let navigate = useNavigate();
 
     let [cred, setCred] = useState({username : null , password : null});
     let [error,setError] = useState("");
@@ -29,10 +27,9 @@ function Auth(){
          axios.post("http://localhost:1000/signup",cred)
              .then(res => {
                 if(res.data == true){
-                    navigate('/expense-tracker')
+                    login(e); //change
                 } 
                 else{
-
                     setError(res.data);
                     setDisplay({"display" : "block" });
                 }
@@ -41,43 +38,26 @@ function Auth(){
         
     }
 
-    function login(e){
-        e.preventDefault();
-
-        axios.post("http://localhost:1000/login",cred)
-             .then(res =>{
-                console.log(res.data)
-                if(res.data == true){
-                navigate('/expense-tracker')
-            }
-            else{
-
-                setError(res.data);
-                setDisplay({"display" : "block" });
-
-            }
-            })  
-             .catch((err) => console.log("signup err>> ",err)); 
-
-    }
-
     return(
-        <div id="auth-wrap">
-        <div id="box">
-            <p id="expense-tracker-p">Expense Tracker</p>
+        <div className="auth-wrap">
+            <p className="expense-tracker-p">Expense Tracker</p>
+
+        <div className="box">
+            <p className="register-login" id="register-p">Register</p>
+
             <form id="auth-form">
                 <input className="auth-input" type="text" placeholder="username" onChange={(e)=>{handleChange(e,"1")}}></input>
                 <input className="auth-input" type="text" placeholder="password" onChange={(e)=>{handleChange(e,"2")}}></input>
-                <p style={display} id="error"><span id="error-logo"><BiErrorCircle/></span>{error}</p>
-                <span id="button-span">
-                <button className="auth-buttons" onClick={login}>Login</button>
-                <button className="auth-buttons" onClick={signUp}>Sign Up</button>
+                <p style={display} className="message"><span className="error-logo"><BiErrorCircle/></span>{error}</p>
+                <p style={display} className="message"><span className="success-logo"><BiErrorCircle/></span>{error}</p>
+                <span className="button-span">
+                <button className="auth-buttons" id="signup" onClick={signUp}>Sign Up</button>
                 </span>
-                
+                <p id="already">already have an account? <a href="/login">login</a> instead</p>
             </form>
         </div>
         </div>
     )
 }
 
-export default Auth
+export default SignUpForm

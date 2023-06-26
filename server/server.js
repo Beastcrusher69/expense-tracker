@@ -88,7 +88,9 @@ app.post("/signup",async (req,res)=>{
         username , password , expenseData : []
     })
 
-    res.send("true");
+    res.send({
+        code:"1"
+    });
 
 })
 
@@ -113,7 +115,7 @@ app.post("/login" , async (req,res)=>{
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
     
-    res.json({ token });
+    res.json({ "success":true,token });
     
 })
 

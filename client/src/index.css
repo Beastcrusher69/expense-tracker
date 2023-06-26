@@ -25,6 +25,8 @@
     --green1: #74BE23;
     --green2:#B2FF5E;
     --green3:#DFFFBD;
+    --register:#F74D4D;
+    --login:#58B2FD;
     }
     
     *{
@@ -141,13 +143,13 @@
 
     /* Auth */
 
-    #auth-wrap{
+    .auth-wrap{
         display:grid;
         place-items:center;
         height:100%;
     }
     
-    #box{
+    .box{
         width:300px;
         padding:25px;
         background-color:white;
@@ -156,10 +158,13 @@
         
     }
     
-    #expense-tracker-p{
+    .expense-tracker-p{
         font-family:ChampagneLimousines;
         color:#74BE23;
         font-size:28px;
+        position:absolute;
+        top:20px;
+        left:20px
     
     }
     
@@ -169,7 +174,7 @@
     }
 
     .auth-input{
-        height:40px;
+        height:45px;
         border-color:rgb(179, 169, 169);
     }
 
@@ -177,13 +182,12 @@
         width:100%;
         margin:4px 0;
     }
-    .auth-input:first-of-type{
-        margin-top:20px;
-    }
     
-    #button-span{
+    .button-span{
         display:flex;
         justify-content: space-between;
+        margin-top: 10px;
+
     }
     
     .auth-buttons{
@@ -194,6 +198,7 @@
         background-color:#74BE23;
         color:white;
         font-size:16px;
+        margin:auto;
     }
 
     .auth-buttons:hover{
@@ -204,7 +209,7 @@
         background-color: var(--green2);
     }
 
-    #error{
+    .message{
         padding:0px 8px;
         margin:2px;
         color:rgb(216, 70, 70);
@@ -215,10 +220,38 @@
         line-height:22px;
     }
 
-    #error-logo{
+    .error-logo{
         position:relative;
         top:2px;
         right:3px;
     }
+
+    .register-login{
+        text-align:center;
+        margin-bottom:10px;
+        font-size:25px;
+    }
+
+    #login-p{
+        color:var(--login);
+    }
+
+    #register-p{
+        color:var(--register);
+    }
+
+    #login{
+        background-color:var(--login);
+    }
+
+    #signup{
+        background-color: var(--register);
+    }
+
+    #already{
+        font-size:14px;
+        margin-top:15px;
+    }
+
     
     
