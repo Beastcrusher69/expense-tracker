@@ -2,14 +2,18 @@ import React from "react";
 import {useState} from "react";
 import './index.css'
 import axios from "axios";
-import { BiErrorCircle } from "react-icons/bi"
+import { BiErrorCircle } from "react-icons/bi";
+import { MdDone } from "react-icons/md";
+
 
 function SignUpForm(){
 
 
     let [cred, setCred] = useState({username : null , password : null});
-    let [error,setError] = useState("");
-    let [display, setDisplay] = useState({"display":"none"});
+    let [message,setMessage] = useState("");
+    let [errorDisplay, setErrorDisplay] = useState({"display":"none"});
+    let [successDisplay, setSuccessDisplay] = useState({"display":"none"});
+
 
     function handleChange(e,i){
 
@@ -26,12 +30,17 @@ function SignUpForm(){
 
          axios.post("http://localhost:1000/signup",cred)
              .then(res => {
-                if(res.data == true){
-                    login(e); //change
+
+                setMessage(res.data.message);
+                if(res.data.code == "1"){
+                    setErrorDisplay({display : "block"});
+                    setSuccessDisplay({display : "none"});
+
+                    
                 } 
                 else{
-                    setError(res.data);
-                    setDisplay({"display" : "block" });
+                    setErrorDisplay({display : "none"});
+                    setSuccessDisplay({display : "block"});
                 }
              }) 
              .catch((err) => console.log("signup err>> ",err));   
@@ -48,8 +57,8 @@ function SignUpForm(){
             <form id="auth-form">
                 <input className="auth-input" type="text" placeholder="username" onChange={(e)=>{handleChange(e,"1")}}></input>
                 <input className="auth-input" type="text" placeholder="password" onChange={(e)=>{handleChange(e,"2")}}></input>
-                <p style={display} className="message"><span className="error-logo"><BiErrorCircle/></span>{error}</p>
-                <p style={display} className="message"><span className="success-logo"><BiErrorCircle/></span>{error}</p>
+                <p style={errorDisplay} className="message error-p"><span className="logo"><BiErrorCircle/></span>{message}</p>
+                <p style={successDisplay} className="message success-p"><span className="logo"><MdDone/></span>{message}</p>
                 <span className="button-span">
                 <button className="auth-buttons" id="signup" onClick={signUp}>Sign Up</button>
                 </span>

@@ -27,6 +27,8 @@
     --green3:#DFFFBD;
     --register:#F74D4D;
     --login:#58B2FD;
+    --error:#FFE9E8;
+    --success:#CCE8FF;
     }
     
     *{
@@ -123,7 +125,6 @@
         background-image: linear-gradient(135deg,var(--green1),var(--green2) );
         color:white;
         font-weight:500;
-        /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  */
         font-family:ChampagneLimousines;
     
     }
@@ -212,15 +213,24 @@
     .message{
         padding:0px 8px;
         margin:2px;
-        color:rgb(216, 70, 70);
         font-size:12px;
-        background-color: #ebede9;
         border-radius: 5px;
         height:22px;
         line-height:22px;
     }
 
-    .error-logo{
+    .error-p{
+        background-color: var(--error);
+        color:rgb(216, 70, 70);
+
+    }
+
+    .success-p{
+        background-color: var(--success);
+        color:#1AA1F3;
+    }
+
+    .logo{
         position:relative;
         top:2px;
         right:3px;
@@ -252,6 +262,8 @@
         font-size:14px;
         margin-top:15px;
     }
+
+
 
     
     

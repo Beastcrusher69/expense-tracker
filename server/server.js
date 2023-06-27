@@ -12,7 +12,6 @@ const corsOptions={
 }
 
 const uri = process.env.MONGO_URI;
-console.log("uri>>> ",uri)
 
 mongoose.connect(uri,
                 { useNewUrlParser : true , useUnifiedTopology : true},)
@@ -52,6 +51,8 @@ app.get('/expense-data',async (req,res)=>{
 
     let dataArr = await Data.find({});
 
+    console.log("hgettt")
+
     res.send(dataArr);
 
 });
@@ -72,15 +73,20 @@ app.post("/signup",async (req,res)=>{
     let password = cred.password;
 
     if(!username || !password){
-        res.send("please fill the fields");
+        res.json({
+            code: "1",
+            message:"please fill the fields"
+        });
         return;
     }
 
     let ExistingUser = await Users.findOne({username});
-    console.log("ExistingUser>>>> ",ExistingUser)
     
     if(ExistingUser){
-        res.send("username already exists");
+        res.json({
+                code: "1",
+                message:"username already exists"
+            });
         return;
     }
     
@@ -89,7 +95,8 @@ app.post("/signup",async (req,res)=>{
     })
 
     res.send({
-        code:"1"
+        code:"2",
+        message:"successfully signed up"
     });
 
 })
@@ -102,20 +109,31 @@ app.post("/login" , async (req,res)=>{
     let payload = { username };
 
     if(!username || !password){
-        res.send("please fill the fields");
+        res.json({
+            code: "1",
+            message:"please fill the fields"
+        });
         return;
     }
 
     let User = await Users.findOne(cred);
 
     if(!User){
-        res.send("username or password is incorrect")
+        res.json({
+            code: "1",
+            message:"username or password is incorrect"
+        })
         return;
     }
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
     
-    res.json({ "success":true,token });
+    res.cookie("jwtToken",token,{
+        expires: new Date(Date.now() + 86400000),
+        httpOnly:true
+    })
+    res.json({ code:"2" });
+    
     
 })
 

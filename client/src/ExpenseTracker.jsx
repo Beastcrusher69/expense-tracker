@@ -44,9 +44,14 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
       setData(getRes.data)})
   },[])
 
-  async function  handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
+
+    console.log("1")
     if(input.purposeValue && input.expenseValue){
+
+    console.log("2")
+
 
     await axios.post(url,{ purpose : input.purposeValue , expense : input.expenseValue})
     .then((postRes) => {

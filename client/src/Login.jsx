@@ -10,8 +10,8 @@ function LoginForm(){
     let navigate = useNavigate();
 
     let [cred, setCred] = useState({username : null , password : null});
-    let [error,setError] = useState("");
-    let [display, setDisplay] = useState({"display":"none"});
+    let [message,setMessage] = useState("");
+    let [errorDisplay, setErrorDisplay] = useState({"display":"none"});
 
     function handleChange(e,i){
 
@@ -28,13 +28,13 @@ function LoginForm(){
 
         axios.post("http://localhost:1000/login",cred)
              .then(res =>{
-                console.log(res.data)
-                if(res.data.success == true){
+                if(res.data.code == "2"){
+
                 navigate('/expense-tracker')
             }
             else{
-                setError(res.data);
-                setDisplay({"display" : "block" });
+                setMessage(res.data.message);
+                setErrorDisplay({"display" : "block" });
 
             }
             })  
@@ -51,7 +51,7 @@ function LoginForm(){
             <form id="auth-form">
                 <input className="auth-input" type="text" placeholder="username" onChange={(e)=>{handleChange(e,"1")}}></input>
                 <input className="auth-input" type="text" placeholder="password" onChange={(e)=>{handleChange(e,"2")}}></input>
-                <p style={display} class="error"><span className="error-logo"><BiErrorCircle/></span>{error}</p>
+                <p style={errorDisplay} className="message error-p"><span className="logo"><BiErrorCircle/></span>{message}</p>
                 <span className="button-span">
                 <button className="auth-buttons" id="login" onClick={login}>Login</button>
                 </span>
