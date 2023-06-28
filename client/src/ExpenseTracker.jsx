@@ -1,6 +1,7 @@
 import { useState , useEffect} from 'react'
 import axios from 'axios'
 import './index.css'
+import { RxCross2 } from "react-icons/rx"
 
 let url = "http://localhost:1000/expense-data";
 
@@ -17,7 +18,7 @@ let serial = 0;
       <tbody>
         {data.map((d)=>{
             serial++;
-          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}>Delete</button></td></tr>
+          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}><span className="cross"><RxCross2/></span><span className="delete-span">Delete</span></button></td></tr>
         })}
       </tbody>
     </table>
@@ -79,7 +80,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   }
 
   return(
-    <>
+    <div id="page">
     <header><span id="expense">Expense</span><span id="tracker">Tracker</span></header>
     <div id="whole-wrapper">
     <form id="input-wrap">
@@ -99,7 +100,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
     </form>
     <Display data={data} handleDelete={handleDelete}/>
     </div>
-    </>
+    </div>
   )
 }
 

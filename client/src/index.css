@@ -1,9 +1,15 @@
 #root{
     width:100%;
+    height:100vh;
+}
+
+#page{
     display:flex;
     flex-direction: column;
     align-items:center;
-    height:100vh;
+    background-color: var(--green4);
+    height:100%;
+
 }
 
 #notfound-div{
@@ -22,9 +28,10 @@
 /* ExpenseTracker */
 
 :root{
-    --green1: #74BE23;
-    --green2:#B2FF5E;
+    --green1: #82db23;
+    --green2:#c0ff7c;
     --green3:#DFFFBD;
+    --green4:#F8FFF1 ;
     --register:#F74D4D;
     --login:#58B2FD;
     --error:#FFE9E8;
@@ -70,7 +77,7 @@
         width:38%;
         padding:8px ;
         height:30px;
-        border:1px solid grey;
+        border:0.1px solid black;
     
     }
     
@@ -86,6 +93,8 @@
         font-size:15px;
         border-collapse:collapse;
         border:1px solid black;
+        table-layout: fixed;
+        word-wrap:break-word;
     
     }
     
@@ -96,7 +105,8 @@
     }
     
     td{
-        width:40%;
+        width:40% ;
+        text-overflow:wrap;
     }
     
     .serial-cell{
@@ -123,15 +133,16 @@
         padding:30px 8% 30px;
         font-size:45px;
         background-image: linear-gradient(135deg,var(--green1),var(--green2) );
-        color:white;
+        color:var(--green4);
         font-weight:500;
         font-family:ChampagneLimousines;
+        box-shadow: grey 0px 0px 10px 0px;
     
     }
     
     .delete{
         height:20px;
-        width:min(60%,80px);
+        width:100px;
         background-color: rgb(224, 75, 75);
         cursor:pointer;
         border:none;
@@ -263,6 +274,27 @@
         margin-top:15px;
     }
 
+    .cross{
+        display: none;
+        position:relative;
+        top:2px;
+    }
+    .delete-span{
+        display: block;
+    }
+
+
+    @media(max-width:700px){
+        .cross{
+            display: block;
+        }
+        .delete-span{
+            display: none;
+        }
+        .delete{
+            width:20px;
+        }
+    }
 
 
     

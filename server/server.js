@@ -127,12 +127,9 @@ app.post("/login" , async (req,res)=>{
     }
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
-    
-    res.cookie("jwtToken",token,{
-        expires: new Date(Date.now() + 86400000),
-        httpOnly:true
-    })
-    res.json({ code:"2" });
+
+    res.json({ code:"2",
+                token });
     
     
 })
