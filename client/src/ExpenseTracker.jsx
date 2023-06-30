@@ -8,6 +8,9 @@ let url = "http://localhost:1000/expense-data";
 function Display(props){
 let {data}=props;
 let serial = 0;
+// const token = sessionStorage.getItem('token');
+
+// console.log(token)
 
   return ( 
     < div>

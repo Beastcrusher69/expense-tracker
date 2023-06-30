@@ -29,7 +29,7 @@ function LoginForm(){
         axios.post("http://localhost:1000/login",cred)
              .then(res =>{
                 if(res.data.code == "2"){
-                token = res.data.token;    
+
                 navigate('/expense-tracker')
             }
             else{

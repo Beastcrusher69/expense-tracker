@@ -1,6 +1,7 @@
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
@@ -38,6 +39,7 @@ const Users = mongoose.model("Users", userSchema);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
+app.use(cookieParser())
 
 app.post('/expense-data',(req,res)=>{
 
@@ -128,8 +130,13 @@ app.post("/login" , async (req,res)=>{
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
 
+    res.cookie("jwtToken",token,{httpOnly:true});
+
+    // sessionStorage.setItem('jwtToken', token);
+
     res.json({ code:"2",
-                token });
+                // token 
+            });
     
     
 })
