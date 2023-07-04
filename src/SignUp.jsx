@@ -4,9 +4,14 @@ import './index.css'
 import axios from "axios";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDone } from "react-icons/md";
+import { be_url } from './config';
 
+let url = be_url;
 
 function SignUpForm(){
+
+
+    console.log(window.location.href)
 
 
     let [cred, setCred] = useState({username : null , password : null});
@@ -28,7 +33,7 @@ function SignUpForm(){
     function signUp(e){
         e.preventDefault();
 
-         axios.post("http://localhost:1000/signup",cred)
+         axios.post(url + "/signup",cred)
              .then(res => {
 
                 setMessage(res.data.message);
@@ -43,9 +48,13 @@ function SignUpForm(){
                     setSuccessDisplay({display : "block"});
                 }
              }) 
-             .catch((err) => console.log("signup err>> ",err));   
+             .catch((err) => {console.log("signup err>> ",err)
+                             console.log(url+"/signup")});   
         
     }
+
+console.log(url);
+
 
     return(
         <div className="auth-wrap">

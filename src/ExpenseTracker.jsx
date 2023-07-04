@@ -2,8 +2,9 @@ import { useState , useEffect} from 'react'
 import axios from 'axios'
 import './index.css'
 import { RxCross2 } from "react-icons/rx"
+import { be_url } from './config';
 
-let url = "http://localhost:1000/expense-data";
+let url = be_url;
 
 function Display(props){
 let {data}=props;
@@ -44,7 +45,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   })
 
   useEffect(()=>{
-    axios.get(url).then( (getRes) => {console.log("first fetch");
+    axios.get(url + "/expense-data").then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
   },[])
 
@@ -57,11 +58,11 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
     console.log("2")
 
 
-    await axios.post(url,{ purpose : input.purposeValue , expense : input.expenseValue})
+    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue})
     .then((postRes) => {
       console.log(postRes.data)
 
-      axios.get(url).then( (getRes) => {console.log(getRes.data);
+      axios.get(url + "/expense-data").then( (getRes) => {console.log(getRes.data);
                                         setData(getRes.data)})
                   
     })
@@ -71,11 +72,11 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
   function handleDelete(id){
   
-    axios.delete("http://localhost:1000/expense-data/"+id)
+    axios.delete(url  + "/expense-data/"+id)
          .then((delRes) => {
           console.log(delRes.data);
 
-          axios.get(url).then( (getRes) => {
+          axios.get(url + "/expense-data").then( (getRes) => {
           setData(getRes.data)})})
 
          .catch((err)=>console.log(err));

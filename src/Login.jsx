@@ -4,6 +4,9 @@ import './index.css'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BiErrorCircle } from "react-icons/bi"
+import { be_url } from './config';
+
+let url = be_url;
 
 function LoginForm(){
 
@@ -26,7 +29,7 @@ function LoginForm(){
     function login(e){
         e.preventDefault();
 
-        axios.post("http://localhost:1000/login",cred)
+        axios.post(url + "/login",cred)
              .then(res =>{
                 if(res.data.code == "2"){
 
