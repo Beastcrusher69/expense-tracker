@@ -11,7 +11,7 @@ let url = be_url;
 function SignUpForm(){
 
 
-    console.log(window.location.href)
+    console.log("window... " + window.location.href)
 
 
     let [cred, setCred] = useState({username : null , password : null});
@@ -49,7 +49,7 @@ function SignUpForm(){
                 }
              }) 
              .catch((err) => {console.log("signup err>> ",err)
-                             console.log(url+"/signup")});   
+                             console.log("post req on>> " + url+"/signup")});   
         
     }
 
