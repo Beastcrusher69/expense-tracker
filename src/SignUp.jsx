@@ -22,7 +22,7 @@ function SignUpForm(){
 
     function handleChange(e,i){
 
-        if(i == "1"){
+        if(i == "1"){   
             setCred({...cred , username:e.target.value});
         }
         else{
@@ -52,9 +52,6 @@ function SignUpForm(){
                              console.log("post req on>> " + url+"/signup")});   
         
     }
-
-console.log(url);
-
 
     return(
         <div className="auth-wrap">
