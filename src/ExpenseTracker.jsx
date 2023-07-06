@@ -5,6 +5,9 @@ import { RxCross2 } from "react-icons/rx"
 import { be_url } from './config';
 
 let url = be_url;
+let authHeader = { headers : {
+  authorization : document.cookie 
+}}
 
 function Display(props){
 let {data}=props;
@@ -45,24 +48,20 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   })
 
   useEffect(()=>{
-    axios.get(url + "/expense-data").then( (getRes) => {console.log("first fetch");
+    axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
   },[])
 
   async function handleSubmit(e){
     e.preventDefault();
 
-    console.log("1")
     if(input.purposeValue && input.expenseValue){
 
-    console.log("2")
-
-
-    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue})
+    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue},authHeader)
     .then((postRes) => {
       console.log(postRes.data)
 
-      axios.get(url + "/expense-data").then( (getRes) => {console.log(getRes.data);
+      axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log(getRes.data);
                                         setData(getRes.data)})
                   
     })
@@ -72,7 +71,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
   function handleDelete(id){
   
-    axios.delete(url  + "/expense-data/"+id)
+    axios.delete(url  + "/expense-data/"+id,authHeader)
          .then((delRes) => {
           console.log(delRes.data);
 
