@@ -1,1 +1,1 @@
-export let be_url = window.location.href.slice(0,8) === 'https://' ? "https://expense-tracker-server-uu6p.onrender.com" : "http://localhost:1000"
+export let be_url = window.location.href.slice(0,8) === 'https://' ? "https://expense-tracker-backend-wacs.onrender.com" : "http://localhost:1000"
