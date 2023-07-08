@@ -7,7 +7,6 @@ import { BiErrorCircle } from "react-icons/bi"
 import { be_url } from './config';
 
 let url = be_url;
-// axios.defaults.withCredentials = true;
 
 function LoginForm(){
 
@@ -34,7 +33,10 @@ function LoginForm(){
              .then(res =>{
                 if(res.data.code == "2"){
 
+                setTimeout(()=>{
                 navigate('/expense-tracker')
+
+                },1000)    
                 console.log(res.headers)
             }
             else{

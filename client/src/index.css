@@ -135,7 +135,7 @@
         background-image: linear-gradient(135deg,var(--green1),var(--green2) );
         color:var(--green4);
         font-weight:500;
-        font-family:ChampagneLimousines;
+        font-family:ChampagneLimousines,sans-serif;
         box-shadow: grey 0px 0px 10px 0px;
     
     }
@@ -171,7 +171,7 @@
     }
     
     .expense-tracker-p{
-        font-family:ChampagneLimousines;
+        font-family:ChampagneLimousines,sans-serif;
         color:#74BE23;
         font-size:28px;
         position:absolute;

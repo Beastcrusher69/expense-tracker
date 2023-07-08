@@ -3,18 +3,18 @@ import axios from 'axios'
 import './index.css'
 import { RxCross2 } from "react-icons/rx"
 import { be_url } from './config';
+import { useNavigate } from 'react-router-dom';
 
 let url = be_url;
-let authHeader = { headers : {
-  authorization : document.cookie 
-}}
+let authHeader = undefined;
 
 function Display(props){
+
 let {data}=props;
 let serial = 0;
-// const token = sessionStorage.getItem('token');
 
-// console.log(token)
+console.log("data>>");
+console.log(data)
 
   return ( 
     < div>
@@ -37,7 +37,8 @@ function ExpenseTracker(){
 
 let [data , setData] =  useState([]);
 //[{purpose:'jay',expense:'200'}]
-let [input , setInput] = useState({purposeValue:null,expenseValue:null})
+let [input , setInput] = useState({purposeValue:null,expenseValue:null});
+let navigate = useNavigate();
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -48,8 +49,16 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
   })
 
   useEffect(()=>{
+    authHeader = { headers : {
+      authorization : document.cookie 
+    }}
     axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
+      .catch( (err)=> {
+        console.log(err);
+        navigate("/login")
+      }
+      )
   },[])
 
   async function handleSubmit(e){
@@ -63,9 +72,14 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
 
       axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log(getRes.data);
                                         setData(getRes.data)})
-                  
+      .catch( (err)=>{console.log({"axios get error" : err});
+      navigate("/login")})
+      
     })
-    .catch( (err)=>console.log({"axios post error" : err}))
+    .catch( (err)=>{console.log({"axios post error" : err});
+     navigate("/login")
+
+  })
     }
   }
 
@@ -75,10 +89,13 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null})
          .then((delRes) => {
           console.log(delRes.data);
 
-          axios.get(url + "/expense-data").then( (getRes) => {
+          axios.get(url + "/expense-data",authHeader).then( (getRes) => {
           setData(getRes.data)})})
 
-         .catch((err)=>console.log(err));
+         .catch((err)=>{console.log(err);
+     navigate("/login")
+
+        });
 
   }
 
