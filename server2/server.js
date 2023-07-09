@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : "http://localhost:5173",
+    origin : ["http://localhost:5173","https://expense-tracker-iota-six.vercel.app/"],
     credentials:true,
     optionSuccessStatus:200,
 }
@@ -206,5 +206,3 @@ app.get("/login",(req,res)=>{
 app.listen(port ,()=>{
     console.log("server listening on port ",port)
 })
-
-//comcrcirm3cwecervrrtg
