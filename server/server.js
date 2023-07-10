@@ -8,6 +8,7 @@ const app = express();
 const port = 1000;
 const corsOptions={
     origin : "https://expense-tracker-iota-six.vercel.app/" ,
+    // origin : " http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200,
 }
