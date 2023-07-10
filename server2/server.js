@@ -7,12 +7,12 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : ["http://localhost:5173","https://expense-tracker-iota-six.vercel.app/"],
+    origin : "https://expense-tracker-iota-six.vercel.app/" ,
     credentials:true,
     optionSuccessStatus:200,
 }
 
-const uri = process.env.MONGO_URI;
+const uri   = process.env.MONGO_URI;
 
 function AuthenticateToken(req,res,next){
     let {authorization} = req.headers;
