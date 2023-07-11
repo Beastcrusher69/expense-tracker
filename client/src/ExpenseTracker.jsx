@@ -1,12 +1,23 @@
 import { useState , useEffect} from 'react'
 import axios from 'axios'
 import './index.css'
-import { RxCross2 } from "react-icons/rx"
+import { RxCross2 } from "react-icons/rx";
+import { IoSettingsSharp } from "react-icons/io5";
 import { be_url } from './config';
 import { useNavigate } from 'react-router-dom';
 
 let url = be_url;
 let authHeader = undefined;
+let user = undefined ; 
+
+function decode(token){
+
+  let base64url = token.split("=")[1].split(".")[1];
+
+  let base64 = base64url.replace("-","+").replace("_","/");
+
+  return JSON.parse(window.atob(base64)).username;
+}
 
 function Display(props){
 
@@ -39,6 +50,8 @@ let [data , setData] =  useState([]);
 //[{purpose:'jay',expense:'200'}]
 let [input , setInput] = useState({purposeValue:null,expenseValue:null});
 let navigate = useNavigate();
+let [optDisplay,setOptDisplay] = useState("none");
+let [userColor,setUserColor] = useState("var(--green3)");
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -52,6 +65,9 @@ let navigate = useNavigate();
     authHeader = { headers : {
       authorization : document.cookie 
     }}
+    
+    user = decode(document.cookie);
+
     axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
       .catch( (err)=> {
@@ -99,9 +115,34 @@ let navigate = useNavigate();
 
   }
 
+  function toggleSettings(){
+
+    if(optDisplay === "none"){
+      setOptDisplay("flex");
+      setUserColor("var(--green1  )");
+    }
+    else{
+      setOptDisplay("none");
+      setUserColor("var(--green3)");
+    }
+  }
+
   return(
     <div id="page">
-    <header><span id="expense">Expense</span><span id="tracker">Tracker</span></header>
+    <header><span id="expense-tracker-heading">
+                  <span id="expense">Expense</span>
+                  <span id="tracker">Tracker</span>
+            </span> 
+
+            <div id="settings-wrap">
+            <span id="user"  onClick={toggleSettings} style={{"background-color" : userColor}}   userColor>{user}<IoSettingsSharp id="settings-icon"/></span>
+            <div id="hamburger" style={{"display" : optDisplay}}>
+              <span className='settings-options'>change password</span>
+              <span className='settings-options'>delete account</span>
+            </div>
+            </div>
+    </header>
+    
     <div id="whole-wrapper">
     <form id="input-wrap">
       <input  
@@ -125,3 +166,6 @@ let navigate = useNavigate();
 }
 
 export default ExpenseTracker
+
+
+

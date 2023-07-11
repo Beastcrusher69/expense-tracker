@@ -130,14 +130,21 @@
     
     header{
         width:100%;
-        padding:30px 8% 30px;
-        font-size:45px;
+        padding: 0px 8% ;
+        height: 12vh;
         background-image: linear-gradient(135deg,var(--green1),var(--green2) );
-        color:var(--green4);
         font-weight:500;
-        font-family:ChampagneLimousines,sans-serif;
         box-shadow: grey 0px 0px 10px 0px;
+        display:flex;
+        align-items:center;
+        justify-content: space-between;
     
+    }
+
+    #expense-tracker-heading{
+        font-size:45px;
+        color:var(--green4);
+        font-family: ChampagneLimousines;
     }
     
     .delete{
@@ -283,6 +290,47 @@
         display: block;
     }
 
+    #user{
+        background-color: var(--green3);
+        color:rgb(89, 87, 87);
+        font-family:sans-serif;
+        font-size:30px;
+        padding:6px;
+        border-radius:5px;
+        cursor:pointer;
+
+    }
+
+    #settings-wrap{
+        background-color: #58B2FD;
+
+    }
+
+    #settings-icon{
+        position:relative;
+        top:5px;
+        left:3px;
+    }
+
+    .settings-options{
+        display:inline-block;
+        padding:5px;
+        border-bottom:1px solid black;
+    }
+
+    #hamburger{
+        display:flex;
+        flex-direction:column;
+        position:absolute;
+        top:10vh;
+        right:8%;
+        background-color: white;
+        border-radius:5px;
+        padding:0px;
+    }
+
+
+
 
     @media(max-width:700px){
         .cross{
@@ -295,6 +343,8 @@
             width:20px;
         }
     }
+
+   
 
 
     
