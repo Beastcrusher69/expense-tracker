@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : "https://expense-tracker-iota-six.vercel.app" ,
-    // origin : " http://localhost:5173",
+    // origin : "https://expense-tracker-iota-six.vercel.app" ,
+    origin : " http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200,
 }
@@ -17,8 +17,12 @@ const uri   = process.env.MONGO_URI;
 
 function AuthenticateToken(req,res,next){
     let {authorization} = req.headers;
+    let token;
 
-    let token = authorization.split("=")[1];
+    try{
+     token = authorization.split("=")[1];
+    }
+    catch{(err)=>{}}
 
     if(!token){
         res.sendStatus(401);
@@ -106,11 +110,10 @@ async (req,res)=>{
 
         let foundUser = await Users.findOne({ username });
 
-        console.log("founduser",foundUser);
+        if(foundUser){
+            res.send(foundUser.expenseData);
+        }
 
-        console.log("expensedata",foundUser.expenseData);
-
-        res.send(foundUser.expenseData);
         return;
 
 });
@@ -128,6 +131,51 @@ app.delete("/expense-data/:id",AuthenticateToken, async(req,res)=>{
 
     res.json({"success" : "successfully deleted"})
 
+})
+
+app.put("/change-password",AuthenticateToken , async (req,res)=>{
+
+    let fields = req.body;
+    let token = req.token ; 
+    let payload = jwt.verify(token , process.env.ACCESS_TOKEN_SECRET);
+    let {username} = payload;
+
+    let foundUser = await Users.findOne({username});
+
+    if(fields.password === foundUser.password){
+
+        if(fields.newPassword === foundUser.password){
+            res.json({
+                code:"1",
+                message:"new password should be different then the current password"
+            })
+        }
+        else{
+            let newFoundUser = await Users.findOneAndUpdate({username},{ password : fields.newPassword},{ new : true});
+            res.json({
+                code : "2",
+                message : "password changed successfully"
+            })
+        }
+    }
+    else{
+        res.json({
+            code:"1",
+            message:"password is incorrect"
+        })
+    }
+ 
+})
+
+app.delete("/delete-account",AuthenticateToken,async (req , res)=>{
+
+    let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
+
+    let deleted = await Users.deleteOne({username});
+
+    res.send("deleted");
+
+    console.log(deleted);
 })
 
 //authentication not required

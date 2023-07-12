@@ -39,9 +39,7 @@ function SignUpForm(){
                 setMessage(res.data.message);
                 if(res.data.code == "1"){
                     setErrorDisplay({display : "block"});
-                    setSuccessDisplay({display : "none"});
-
-                    
+                    setSuccessDisplay({display : "none"}); 
                 } 
                 else{
                     setErrorDisplay({display : "none"});

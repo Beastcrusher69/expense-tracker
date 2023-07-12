@@ -7,7 +7,7 @@ import { be_url } from './config';
 import { useNavigate } from 'react-router-dom';
 
 let url = be_url;
-let authHeader = undefined;
+export let authHeader = undefined;
 let user = undefined ; 
 
 function decode(token){
@@ -51,7 +51,7 @@ let [data , setData] =  useState([]);
 let [input , setInput] = useState({purposeValue:null,expenseValue:null});
 let navigate = useNavigate();
 let [optDisplay,setOptDisplay] = useState("none");
-let [userColor,setUserColor] = useState("var(--green3)");
+let [userColor,setUserColor] = useState("white");
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -119,12 +119,33 @@ let [userColor,setUserColor] = useState("var(--green3)");
 
     if(optDisplay === "none"){
       setOptDisplay("flex");
-      setUserColor("var(--green1  )");
+      setUserColor("var(--green3)");
     }
     else{
       setOptDisplay("none");
-      setUserColor("var(--green3)");
+      setUserColor("white");
     }
+  }
+
+  function changePassword(){
+    navigate("/change-password");
+  }
+
+  function deleteAccount(){
+
+    if(window.confirm("are you sure, you want to delete the account? All your data will be lost")){
+      console.log("ok");
+
+      axios.delete(url + "/delete-account", authHeader )
+          .then((res) => {
+            navigate("/login");
+          })
+          .catch((err)=> console.log(err));
+    }
+    else{
+      console.log("cancel");
+    }
+
   }
 
   return(
@@ -137,8 +158,8 @@ let [userColor,setUserColor] = useState("var(--green3)");
             <div id="settings-wrap">
             <span id="user"  onClick={toggleSettings} style={{"background-color" : userColor}}   userColor>{user}<IoSettingsSharp id="settings-icon"/></span>
             <div id="hamburger" style={{"display" : optDisplay}}>
-              <span className='settings-options'>change password</span>
-              <span className='settings-options'>delete account</span>
+              <span className='settings-options' onClick={changePassword}>change password</span>
+              <span className='settings-options' onClick={deleteAccount}>delete account</span>
             </div>
             </div>
     </header>
@@ -166,6 +187,7 @@ let [userColor,setUserColor] = useState("var(--green3)");
 }
 
 export default ExpenseTracker
+
 
 
 
