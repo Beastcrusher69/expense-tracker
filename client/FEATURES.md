@@ -1,6 +1,9 @@
-- store data in database
+- store data in database 
+- delete individual expense
 - authentication
 - host website
+- change password 
+- delete account
 - upload photos of bill for each expense
 - store expenses date vise
 - display total expense

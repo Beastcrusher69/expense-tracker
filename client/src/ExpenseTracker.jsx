@@ -24,9 +24,6 @@ function Display(props){
 let {data}=props;
 let serial = 0;
 
-console.log("data>>");
-console.log(data)
-
   return ( 
     < div>
     <table>
@@ -134,7 +131,6 @@ let [userColor,setUserColor] = useState("white");
   function deleteAccount(){
 
     if(window.confirm("are you sure, you want to delete the account? All your data will be lost")){
-      console.log("ok");
 
       axios.delete(url + "/delete-account", authHeader )
           .then((res) => {
@@ -143,7 +139,6 @@ let [userColor,setUserColor] = useState("white");
           .catch((err)=> console.log(err));
     }
     else{
-      console.log("cancel");
     }
 
   }
@@ -156,7 +151,7 @@ let [userColor,setUserColor] = useState("white");
             </span> 
 
             <div id="settings-wrap">
-            <span id="user"  onClick={toggleSettings} style={{"background-color" : userColor}}   userColor>{user}<IoSettingsSharp id="settings-icon"/></span>
+            <span id="user"  onClick={toggleSettings} style={{"backgroundColor" : userColor}}>{user}<IoSettingsSharp id="settings-icon"/></span>
             <div id="hamburger" style={{"display" : optDisplay}}>
               <span className='settings-options' onClick={changePassword}>change password</span>
               <span className='settings-options' onClick={deleteAccount}>delete account</span>
