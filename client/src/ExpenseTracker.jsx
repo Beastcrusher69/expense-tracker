@@ -63,7 +63,9 @@ let [userColor,setUserColor] = useState("white");
       authorization : document.cookie 
     }}
     
+    if(document.cookie){
     user = decode(document.cookie);
+    }
 
     axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
