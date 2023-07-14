@@ -241,7 +241,7 @@ app.post("/login" , async (req,res)=>{
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
 
-    res.cookie("jwtToken",token,{httpOnly:false , sameSite:"none"});
+    res.cookie("jwtToken",token,{httpOnly:false , sameSite:"none" , secure:"true"});
 
     res.json({ code:"2",
             });
