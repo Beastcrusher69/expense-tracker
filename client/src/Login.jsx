@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {useState} from "react";
 import './index.css'
 import axios from "axios";
@@ -11,10 +11,17 @@ let url = be_url;
 function LoginForm(){
 
     let navigate = useNavigate();
-
     let [cred, setCred] = useState({username : null , password : null});
     let [message,setMessage] = useState("");
     let [errorDisplay, setErrorDisplay] = useState({"display":"none"});
+
+    useEffect(()=>{
+
+        axios.get(url + "/login" , { withCredentials : true})
+        .then((res) => { console.log(res.data)})
+        .catch((err)=> { console.log})
+
+    }, [])
 
     function handleChange(e,i){
 
@@ -36,7 +43,7 @@ function LoginForm(){
                 setTimeout(()=>{
                 navigate('/expense-tracker')
 
-                },1000)    
+                },5000)    
                 console.log(res.headers)
             }
             else{

@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : "https://expense-tracker-iota-six.vercel.app" ,
-    // origin : "http://localhost:5173",
+    // origin : "https://expense-tracker-iota-six.vercel.app" ,
+    origin : "http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200,
 }
@@ -249,7 +249,8 @@ app.post("/login" , async (req,res)=>{
 })
 
 app.get("/login",(req,res)=>{
-    res.cookie("test","jay");
+    res.cookie("test","jay",{httpOnly:false , sameSite:"none" , secure:true});
+    res.send("wmfwufn3ugn")
 
 })
 app.listen(port ,()=>{
