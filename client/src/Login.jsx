@@ -15,13 +15,13 @@ function LoginForm(){
     let [message,setMessage] = useState("");
     let [errorDisplay, setErrorDisplay] = useState({"display":"none"});
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        axios.get(url + "/login" , { withCredentials : true})
-        .then((res) => { console.log(res.data)})
-        .catch((err)=> { console.log})
+    //     axios.get(url + "/login" , { withCredentials : true})
+    //     .then((res) => { console.log(res.data)})
+    //     .catch((err)=> { console.log})
 
-    }, [])
+    // }, [])
 
     function handleChange(e,i){
 

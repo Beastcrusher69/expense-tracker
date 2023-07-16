@@ -89,6 +89,9 @@ async (req,res)=>{
 
     let newExpense = req.body;
 
+    console.log("req>>>>>", req);
+    console.log("req.cookies>>>>>", req.cookies);
+
         let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
         console.log(username);
 
