@@ -9,11 +9,40 @@ const port = 1000;
 const corsOptions={
     origin : "https://expense-tracker-iota-six.vercel.app" ,
     // origin : "http://localhost:5173",
+
     credentials:true,
     optionSuccessStatus:200,
 }
 
 const uri = process.env.MONGO_URI;
+
+
+mongoose.connect(uri,
+    { useNewUrlParser : true , useUnifiedTopology : true},)
+    .then( console.log("connected"))
+                .catch((err)=> console.log(err));
+                
+                const dataSchema = mongoose.Schema({
+                    purpose : String ,
+                    expense : String
+                },
+                {
+                    versionKey : false
+});
+
+const userSchema = mongoose.Schema({
+    username : "String",
+    password : "String",
+    expenseData : [dataSchema]
+})
+
+const Data = mongoose.model("Data", dataSchema);
+const Users = mongoose.model("Users", userSchema);
+
+app.use(cors(corsOptions));
+app.use(express.urlencoded({extended : true}));
+app.use(express.json());
+app.use(cookieParser());
 
 function AuthenticateToken(req,res,next){
 
@@ -50,33 +79,6 @@ function AuthenticateToken(req,res,next){
     }
 
 }
-
-mongoose.connect(uri,
-                { useNewUrlParser : true , useUnifiedTopology : true},)
-                .then( console.log("connected"))
-                .catch((err)=> console.log(err));
-
-const dataSchema = mongoose.Schema({
-    purpose : String ,
-    expense : String
-},
-{
-    versionKey : false
-});
-
-const userSchema = mongoose.Schema({
-    username : "String",
-    password : "String",
-    expenseData : [dataSchema]
-})
-
-const Data = mongoose.model("Data", dataSchema);
-const Users = mongoose.model("Users", userSchema);
-
-app.use(cors(corsOptions));
-app.use(express.urlencoded({extended : true}));
-app.use(express.json());
-app.use(cookieParser());
 
 app.get("/signup",(req,res)=>{
 
