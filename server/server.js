@@ -16,11 +16,11 @@ const corsOptions={
 const uri = process.env.MONGO_URI;
 
 function AuthenticateToken(req,res,next){
-    let {authorization} = req.headers;
+
     let token;
 
     try{
-     token = authorization.split("=")[1];
+    token = req.cookies.jwtToken;
     }
     catch{(err)=>{}}
 
@@ -244,7 +244,7 @@ app.post("/login" , async (req,res)=>{
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
 
-    res.cookie("jwtToken",token,{httpOnly:false , sameSite:"none" , secure:true});
+    res.cookie("jwtToken",token,{httpOnly:true , sameSite:"none" , secure:true});
 
     res.json({ code:"2",
             });
@@ -252,8 +252,9 @@ app.post("/login" , async (req,res)=>{
 })
 
 app.get("/login",(req,res)=>{
-    res.cookie("test","jay",{httpOnly:false , sameSite:"none" , secure:true});
+    res.cookie("test","jay",{httpOnly:true , sameSite:"none" , secure:true});
     res.send("wmfwufn3ugn")
+    console.log("req.cookies>>>>>", req.cookies);
 
 })
 app.listen(port ,()=>{
