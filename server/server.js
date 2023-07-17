@@ -19,6 +19,8 @@ function AuthenticateToken(req,res,next){
 
     let token;
 
+    console.log("req.cookies>>>>>", req.cookies);
+
     try{
     token = req.cookies.jwtToken;
     }
@@ -88,9 +90,6 @@ AuthenticateToken,
 async (req,res)=>{
 
     let newExpense = req.body;
-
-    console.log("req>>>>>", req);
-    console.log("req.cookies>>>>>", req.cookies);
 
         let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
         console.log(username);
@@ -251,12 +250,6 @@ app.post("/login" , async (req,res)=>{
     
 })
 
-app.get("/login",(req,res)=>{
-    res.cookie("test","jay",{httpOnly:true , sameSite:"none" , secure:true});
-    res.send("wmfwufn3ugn")
-    console.log("req.cookies>>>>>", req.cookies);
-
-})
 app.listen(port ,()=>{
     console.log("server listening on port ",port)
 })
