@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    // origin : "https://expense-tracker-iota-six.vercel.app" ,
-    origin : "http://localhost:5173",
+    origin : "https://expense-tracker-iota-six.vercel.app" ,
+    // origin : "http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200,
 }
@@ -47,17 +47,15 @@ function AuthenticateToken(req,res,next){
 
     let token;
 
-    // console.log("req.cookies>>>>>", req.cookies);
-
     try{
     token = req.cookies.jwtToken;
     }
     catch{(err)=>{}}
 
     if(!token){
-        // res.sendStatus(401);
+        res.sendStatus(401);
         console.log(401);
-        // return;
+        return;
     }
 
     else{
@@ -66,20 +64,16 @@ function AuthenticateToken(req,res,next){
             jwt.verify(token , process.env.ACCESS_TOKEN_SECRET)
         }    
         catch{
-        // res.sendStatus(498);
+        res.sendStatus(498);
         console.log(498);
 
-        // return;
+        return;
         }
 
-        // req.token = token ; 
+        req.token = token ; 
 
-        // next();
+        next();
     }
-
-    req.token = token ; 
-    
-    next();
 
 }
 
@@ -254,7 +248,7 @@ app.post("/login" , async (req,res)=>{
 
     let token = jwt.sign(payload , process.env.ACCESS_TOKEN_SECRET);
 
-    // res.cookie("jwtToken",token,{httpOnly:true , sameSite:"none" , secure:true});
+    res.cookie("jwtToken",token,{httpOnly:true , sameSite:"none" , secure:true});
 
     res.json({ code:"2",
             });
