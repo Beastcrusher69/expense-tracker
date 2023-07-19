@@ -67,7 +67,7 @@ let [userColor,setUserColor] = useState("white");
     user = decode(document.cookie);
     }
 
-    axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log("first fetch");
+    axios.get(url + "/expense-data",authHeader,{withCredentials: true}).then( (getRes) => {console.log("first fetch");
       setData(getRes.data)})
       .catch( (err)=> {
         console.log(err);
@@ -88,7 +88,8 @@ let [userColor,setUserColor] = useState("white");
       axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log(getRes.data);
                                         setData(getRes.data)})
       .catch( (err)=>{console.log({"axios get error" : err});
-      navigate("/login")})
+      navigate("/login")
+    })
       
     })
     .catch( (err)=>{console.log({"axios post error" : err});

@@ -19,7 +19,7 @@ function LoginForm(){
 
         axios.get(url + "/login" , { withCredentials : true})
         .then((res) => { console.log(res.data)})
-        .catch((err)=> { console.log})
+        .catch((err)=> { console.log(err)})
 
     }, [])
 
