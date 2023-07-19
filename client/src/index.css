@@ -93,7 +93,7 @@
         font-size:15px;
         border-collapse:collapse;
         border:1px solid black;
-        table-layout: fixed;
+        /* table-layout: fixed; */
         word-wrap:break-word;
     
     }
@@ -104,28 +104,14 @@
         text-align: center;
     }
     
+    .serial-cell{
+        width:5%;
+    }
+    .delete-cell{
+        width:15%;
+    }
     td{
         width:40% ;
-        text-overflow:wrap;
-    }
-    
-    .serial-cell{
-        width:10%;
-    }
-    
-    @font-face{
-        font-family:expense-tracker;
-        src:url(./public/fonts/expense-tracker-font.ttf)
-    }
-    
-    @font-face{
-        font-family:ChampagneLimousines;
-        src:url(./public/fonts/Champagne&LimousinesBold.ttf)
-    
-    }
-    @font-face{
-        font-family:ChampagneLimousinesBold;
-        src:url(./public/fonts/Champagne&Limousines.ttf)
     }
     
     header{
@@ -144,7 +130,8 @@
     #expense-tracker-heading{
         font-size:45px;
         color:var(--green4);
-        font-family: ChampagneLimousines;
+        font-family: Jost,sans-serif;
+        font-weight:300;
     }
     
     .delete{
@@ -178,7 +165,8 @@
     }
     
     .expense-tracker-p{
-        font-family:ChampagneLimousines,sans-serif;
+        font-family:Jost,sans-serif;
+        font-weight: 300;
         color:#74BE23;
         font-size:28px;
         position:absolute;
@@ -293,15 +281,10 @@
     #user{
         color:rgb(51, 51, 51);
         font-family:sans-serif;
-        font-size:30px;
+        font-size:25px;
         padding:6px 8px 6px 12px;
         border-radius:5px;
         cursor:pointer;
-
-    }
-
-    #settings-wrap{
-        background-color: #58B2FD;
 
     }
 
@@ -342,6 +325,34 @@
         }
         .delete{
             width:20px;
+        }
+    }
+
+    @media(max-width:450px){
+
+        #expense-tracker-heading{
+        font-size:30px;
+        }
+        #user{
+        font-size:25px;
+        }
+        header{
+            height:8vh;
+        }
+        table{
+            font-size: 14px;
+            margin-top: 32px;
+        }
+        td{
+            padding:4px;
+
+        }
+        #whole-wrapper{
+            padding-top:32px;
+            width:85vw;
+        }
+        .serial-cell{
+            width:5%;
         }
     }
 

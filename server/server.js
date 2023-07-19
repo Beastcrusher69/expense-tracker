@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : "https://expense-tracker-iota-six.vercel.app" ,
-    // origin : "http://localhost:5173",
+    // origin : "https://expense-tracker-iota-six.vercel.app" ,
+    origin : "http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200
 }
@@ -108,11 +108,12 @@ async (req,res)=>{
         let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
         console.log(username);
 
-        let {expenseData} = await Users.findOne({ username });
+        try{
+            let {expenseData} = await Users.findOne({ username });
 
-        res.json({expenseData , username});
-
-    // res.cookie("test","jay",{httpOnly :true , secure:false , sameSite:"none"})
+            res.json({expenseData , username});
+        }
+        catch{(err) => console.log(err)}
 
     return;
 

@@ -32,7 +32,7 @@ function ChangePassword(){
         e.preventDefault();
         console.log(fields);
         
-        axios.put(url + "/change-password", fields)
+        axios.put(url + "/change-password", fields , {withCredentials : true})
         .then((res)=>{
 
                 setMessage(res.data.message);

@@ -43,7 +43,7 @@ function LoginForm(){
                 setTimeout(()=>{
                 navigate('/expense-tracker')
 
-                },15000)    
+                },5000)    
                 console.log(res.headers)
             }
             else{

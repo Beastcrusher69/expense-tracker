@@ -32,7 +32,7 @@ let serial = 0;
       <tbody>
         {data.map((d)=>{
             serial++;
-          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td><button className="delete" onClick={()=>{props.handleDelete(d._id)}}><span className="cross"><RxCross2/></span><span className="delete-span">Delete</span></button></td></tr>
+          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td className="delete-cell"><button className="delete" onClick={()=>{props.handleDelete(d._id)}}><span className="cross"><RxCross2/></span><span className="delete-span">Delete</span></button></td></tr>
         })}
       </tbody>
     </table>
@@ -85,7 +85,7 @@ let [userColor,setUserColor] = useState("white");
       console.log(postRes.data)
 
       axios.get(url + "/expense-data",{withCredentials: true}).then( (getRes) => {console.log(getRes.data);
-                                        setData(getRes.data)})
+                                        setData(getRes.data.expenseData)})
       .catch( (err)=>{console.log({"axios get error" : err});
       navigate("/login")
     })
@@ -134,7 +134,7 @@ let [userColor,setUserColor] = useState("white");
 
     if(window.confirm("are you sure, you want to delete the account? All your data will be lost")){
 
-      axios.delete(url + "/delete-account" )
+      axios.delete(url + "/delete-account" , {withCredentials : true})
           .then((res) => {
             navigate("/login");
           })
