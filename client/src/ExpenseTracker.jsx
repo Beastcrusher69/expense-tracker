@@ -7,7 +7,6 @@ import { be_url } from './config';
 import { useNavigate } from 'react-router-dom';
 
 let url = be_url;
-export let authHeader = undefined;
 let user = undefined ; 
 
 function decode(token){
@@ -59,17 +58,17 @@ let [userColor,setUserColor] = useState("white");
   })
 
   useEffect(()=>{
-    authHeader = { headers : {
-      authorization : document.cookie 
-    }}
     
     if(document.cookie){
     user = decode(document.cookie);
     }
 
-    axios.get(url + "/expense-data",authHeader,{withCredentials: true}).then( (getRes) => {console.log("first fetch");
-      setData(getRes.data)})
-      .catch( (err)=> {
+    axios.get(url + "/expense-data",{withCredentials: true})
+    .then( (res) => {
+      console.log("first fetch");
+      setData(res.data.expenseData)
+      user = res.data.username;})
+    .catch( (err)=> {
         console.log(err);
         navigate("/login")
       }
@@ -81,11 +80,11 @@ let [userColor,setUserColor] = useState("white");
 
     if(input.purposeValue && input.expenseValue){
 
-    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue},authHeader)
+    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue},{withCredentials: true})
     .then((postRes) => {
       console.log(postRes.data)
 
-      axios.get(url + "/expense-data",authHeader).then( (getRes) => {console.log(getRes.data);
+      axios.get(url + "/expense-data",{withCredentials: true}).then( (getRes) => {console.log(getRes.data);
                                         setData(getRes.data)})
       .catch( (err)=>{console.log({"axios get error" : err});
       navigate("/login")
@@ -101,12 +100,12 @@ let [userColor,setUserColor] = useState("white");
 
   function handleDelete(id){
   
-    axios.delete(url  + "/expense-data/"+id,authHeader)
+    axios.delete(url  + "/expense-data/"+id , {withCredentials: true})
          .then((delRes) => {
           console.log(delRes.data);
 
-          axios.get(url + "/expense-data",authHeader).then( (getRes) => {
-          setData(getRes.data)})})
+          axios.get(url + "/expense-data", {withCredentials: true}).then( (getRes) => {
+          setData(getRes.data.expenseData)})})
 
          .catch((err)=>{console.log(err);
      navigate("/login")
@@ -135,7 +134,7 @@ let [userColor,setUserColor] = useState("white");
 
     if(window.confirm("are you sure, you want to delete the account? All your data will be lost")){
 
-      axios.delete(url + "/delete-account", authHeader )
+      axios.delete(url + "/delete-account" )
           .then((res) => {
             navigate("/login");
           })

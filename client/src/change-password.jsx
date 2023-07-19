@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { BiErrorCircle } from "react-icons/bi";
 import { MdDone } from "react-icons/md";
 import { be_url } from './config';
-import { authHeader } from "./ExpenseTracker.jsx";
 let url = be_url;
 
 function ChangePassword(){
@@ -33,7 +32,7 @@ function ChangePassword(){
         e.preventDefault();
         console.log(fields);
         
-        axios.put(url + "/change-password", fields , authHeader)
+        axios.put(url + "/change-password", fields)
         .then((res)=>{
 
                 setMessage(res.data.message);
@@ -76,25 +75,3 @@ export default ChangePassword
 
 
 
-
-        // function login(e){
-        //     e.preventDefault();
-    
-        //     axios.post(url + "/login", cred ,{withCredentials: true})
-        //          .then(res =>{
-        //             if(res.data.code == "2"){
-    
-        //             setTimeout(()=>{
-        //             navigate('/expense-tracker')
-    
-        //             },1000)    
-        //             console.log(res.headers)
-        //         }
-        //         else{
-        //             setMessage(res.data.message);
-        //             setErrorDisplay({"display" : "block" });
-    
-        //         }
-        //         })  
-        //          .catch((err) => console.log("signup err>> ",err)); 
-        // }

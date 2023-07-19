@@ -7,14 +7,13 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 1000;
 const corsOptions={
-    origin : "https://expense-tracker-iota-six.vercel.app" ,
-    // origin : "http://localhost:5173",
+    // origin : "https://expense-tracker-iota-six.vercel.app" ,
+    origin : "http://localhost:5173",
     credentials:true,
     optionSuccessStatus:200,
 }
 
 const uri = process.env.MONGO_URI;
-
 
 mongoose.connect(uri,
     { useNewUrlParser : true , useUnifiedTopology : true},)
@@ -106,22 +105,16 @@ app.get('/expense-data',
 AuthenticateToken,
 async (req,res)=>{
 
-    if(req.token){
-
         let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
         console.log(username);
 
-        let foundUser = await Users.findOne({ username });
+        let {expenseData} = await Users.findOne({ username });
 
-        if(foundUser){
-            res.send(foundUser.expenseData);
-        }
+        res.json({expenseData , username});
 
-    }
+    // res.cookie("test","jay",{httpOnly :true , secure:false , sameSite:"none"})
 
-    res.cookie("test","jay",{httpOnly :true , secure:false , sameSite:"none"})
-
-        return;
+    return;
 
 });
 
