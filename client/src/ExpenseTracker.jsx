@@ -9,15 +9,6 @@ import { useNavigate } from 'react-router-dom';
 let url = be_url;
 let user = undefined ; 
 
-function decode(token){
-
-  let base64url = token.split("=")[1].split(".")[1];
-
-  let base64 = base64url.replace("-","+").replace("_","/");
-
-  return JSON.parse(window.atob(base64)).username;
-}
-
 function Display(props){
 
 let {data}=props;
@@ -48,6 +39,7 @@ let [input , setInput] = useState({purposeValue:null,expenseValue:null});
 let navigate = useNavigate();
 let [optDisplay,setOptDisplay] = useState("none");
 let [userColor,setUserColor] = useState("white");
+let [image, setImage] = useState(null);
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -59,10 +51,6 @@ let [userColor,setUserColor] = useState("white");
 
   useEffect(()=>{
     
-    if(document.cookie){
-    user = decode(document.cookie);
-    }
-
     axios.get(url + "/expense-data",{withCredentials: true})
     .then( (res) => {
       console.log("first fetch");
@@ -75,10 +63,26 @@ let [userColor,setUserColor] = useState("white");
       )
   },[])
 
+
+  function uploadImage(){
+    let data = new FormData();
+    data.append('file',image);
+    data.append('upload_preset','expense-tracker')
+    data.append('cloud_name','dgqba5trl')
+
+    return axios.post("https://api.cloudinary.com/v1_1/dgqba5trl/image/upload",data)
+
+  }
+
   async function handleSubmit(e){
     e.preventDefault();
 
     if(input.purposeValue && input.expenseValue){
+
+      if(image)
+      await uploadImage()
+      .then((res) => console.log(res.data.url))
+      .catch((err)=> console.log(err))
 
     await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue},{withCredentials: true})
     .then((postRes) => {
@@ -95,6 +99,8 @@ let [userColor,setUserColor] = useState("white");
      navigate("/login")
 
   })
+
+  
     }
   }
 
@@ -140,8 +146,7 @@ let [userColor,setUserColor] = useState("white");
           })
           .catch((err)=> console.log(err));
     }
-    else{
-    }
+    return ;
 
   }
 
@@ -173,7 +178,14 @@ let [userColor,setUserColor] = useState("white");
                 setInput({...input ,expenseValue:e.target.value})}} 
                 name="expense" 
                 placeholder='expense' />
-      <button id="input-button" 
+
+
+      <div id="upload-wrap">
+      <label htmlFor="image-input" id="upload-image">upload image</label>
+      <p id="image-display">uvwuyvevvyvaaaaaaaaaaaaaaaaaaaaa</p>
+      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files); console.log(e.target.files)}}/>            
+      </div>
+      <button id="enter" 
               onClick={handleSubmit}
               >Enter</button>
     </form>
