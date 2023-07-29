@@ -22,7 +22,8 @@ mongoose.connect(uri,
                 
                 const dataSchema = mongoose.Schema({
                     purpose : String ,
-                    expense : String
+                    expense : String ,
+                    imageUrl : String
                 },
                 {
                     versionKey : false
@@ -89,6 +90,8 @@ async (req,res)=>{
 
     let newExpense = req.body;
 
+    console.log(newExpense);
+
         let {username} = jwt.verify(req.token , process.env.ACCESS_TOKEN_SECRET);
         console.log(username);
 
@@ -110,6 +113,8 @@ async (req,res)=>{
 
         try{
             let {expenseData} = await Users.findOne({ username });
+
+            console.log("get>> " , expenseData)
 
             res.json({expenseData , username});
         }

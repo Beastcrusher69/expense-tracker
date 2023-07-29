@@ -2,10 +2,10 @@ import { useState , useEffect} from 'react'
 import axios from 'axios'
 import './index.css'
 import { RxCross2 } from "react-icons/rx";
+import { AiOutlineCamera } from "react-icons/ai";
 import { IoSettingsSharp } from "react-icons/io5";
 import { be_url } from './config';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom'; 
 let url = be_url;
 let user = undefined ; 
 
@@ -23,8 +23,26 @@ let serial = 0;
       <tbody>
         {data.map((d)=>{
             serial++;
-          return <tr key={serial}><td className="serial-cell">{serial}</td><td>{d.purpose}</td><td>{d.expense}</td><td className="delete-cell"><button className="delete" onClick={()=>{props.handleDelete(d._id)}}><span className="cross"><RxCross2/></span><span className="delete-span">Delete</span></button></td></tr>
-        })}
+          return (
+          <tr key={serial}>
+            <td className="serial-cell">{serial}</td>
+            <td>{d.purpose}</td>
+            <td>{d.expense}</td>
+            <td className="last-cell">
+              <span className='last-cell-wrap'>
+              <button className="delete-button" onClick={()=>{props.handleDelete(d._id)}}>
+                <span className="cross"><RxCross2/></span>
+                <span className="delete-span">Delete</span>
+              </button>
+              <a className="view-image-button" 
+                 href={d.imageUrl} >
+                <span className="cross"><AiOutlineCamera/></span>
+                <span className="delete-span">View Image</span>
+              </a>
+              </span>
+            </td>
+          </tr>
+        )})}
       </tbody>
     </table>
     </div>
@@ -40,6 +58,7 @@ let navigate = useNavigate();
 let [optDisplay,setOptDisplay] = useState("none");
 let [userColor,setUserColor] = useState("white");
 let [image, setImage] = useState(null);
+let [imagePreview , setImagePreview ] = useState(null);
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -77,14 +96,19 @@ let [image, setImage] = useState(null);
   async function handleSubmit(e){
     e.preventDefault();
 
+    let imageUrl = null ;
+
     if(input.purposeValue && input.expenseValue){
 
       if(image)
       await uploadImage()
-      .then((res) => console.log(res.data.url))
+      .then((res) => {console.log(res.data.url);
+                      imageUrl = res.data.url})
       .catch((err)=> console.log(err))
 
-    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue},{withCredentials: true})
+      console.log(imageUrl);
+
+    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue , imageUrl},{withCredentials: true})
     .then((postRes) => {
       console.log(postRes.data)
 
@@ -182,8 +206,8 @@ let [image, setImage] = useState(null);
 
       <div id="upload-wrap">
       <label htmlFor="image-input" id="upload-image">upload image</label>
-      <p id="image-display">uvwuyvevvyvaaaaaaaaaaaaaaaaaaaaa</p>
-      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files); console.log(e.target.files)}}/>            
+      <p id="image-preview">{imagePreview}</p>
+      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files[0]); setImagePreview(e.target.files[0].name);console.log(e.target.files)}}/>            
       </div>
       <button id="enter" 
               onClick={handleSubmit}
