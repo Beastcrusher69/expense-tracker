@@ -35,7 +35,8 @@ let serial = 0;
                 <span className="delete-span">Delete</span>
               </button>
               <a className="view-image-button" 
-                 href={d.imageUrl} >
+                 href={d.imageUrl}
+                 target='_blank' >
                 <span className="cross"><AiOutlineCamera/></span>
                 <span className="delete-span">View Image</span>
               </a>
@@ -59,6 +60,7 @@ let [optDisplay,setOptDisplay] = useState("none");
 let [userColor,setUserColor] = useState("white");
 let [image, setImage] = useState(null);
 let [imagePreview , setImagePreview ] = useState(null);
+let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
 
     useEffect(()=>{
     window.addEventListener('keydown',(e)=>{
@@ -101,19 +103,24 @@ let [imagePreview , setImagePreview ] = useState(null);
     if(input.purposeValue && input.expenseValue){
 
       if(image)
-      await uploadImage()
+      {
+        await uploadImage()
       .then((res) => {console.log(res.data.url);
-                      imageUrl = res.data.url})
+                      imageUrl = res.data.url;
+                      })
       .catch((err)=> console.log(err))
 
       console.log(imageUrl);
+      }
 
     await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue , imageUrl},{withCredentials: true})
     .then((postRes) => {
       console.log(postRes.data)
 
       axios.get(url + "/expense-data",{withCredentials: true}).then( (getRes) => {console.log(getRes.data);
-                                        setData(getRes.data.expenseData)})
+                                        setData(getRes.data.expenseData)
+                                       setImagePreview(null);
+                                      setImagePreviewStyle({display : 'none'})})
       .catch( (err)=>{console.log({"axios get error" : err});
       navigate("/login")
     })
@@ -206,8 +213,8 @@ let [imagePreview , setImagePreview ] = useState(null);
 
       <div id="upload-wrap">
       <label htmlFor="image-input" id="upload-image">upload image</label>
-      <p id="image-preview">{imagePreview}</p>
-      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files[0]); setImagePreview(e.target.files[0].name);console.log(e.target.files)}}/>            
+      <p id="image-preview" style={imagePreviewStyle}>{imagePreview}</p>
+      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files[0]); setImagePreview(e.target.files[0].name); setImagePreviewStyle({display : 'block'}) ; console.log(e.target.files)}}/>            
       </div>
       <button id="enter" 
               onClick={handleSubmit}
