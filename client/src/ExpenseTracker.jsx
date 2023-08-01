@@ -15,16 +15,16 @@ let {data}=props;
 let serial = 0;
 
   return ( 
-    < div>
+    < div id="table-wrapper">
     <table>
       <thead>
-      <tr><th>Sr.no.</th><th>purpose of expense</th><th>amount</th><th></th></tr>
+      <tr id="tr-first"><th>Sr.no.</th><th>purpose of expense</th><th>amount</th><th></th></tr>
       </thead>
       <tbody>
         {data.map((d)=>{
             serial++;
           return (
-          <tr key={serial}>
+          <tr key={serial} class="tr-data">
             <td className="serial-cell">{serial}</td>
             <td>{d.purpose}</td>
             <td>{d.expense}</td>
