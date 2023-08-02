@@ -220,6 +220,20 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
               onClick={handleSubmit}
               >Enter</button>
     </form>
+
+    <div id="extra-options">
+      <label for="sortby-select">
+        Sort by:
+      </label>
+      <select id="sortby-select">
+        <span>mcwde</span>
+        <option>oldest first</option>
+        <option>newest first</option>
+        <option>A-Z</option>
+        <option>Z-A</option>
+      </select>
+    </div>
+
     <Display data={data} handleDelete={handleDelete}/>
     </div>
     </div>
