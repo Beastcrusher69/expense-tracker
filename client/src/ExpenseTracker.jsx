@@ -24,7 +24,7 @@ let serial = 0;
         {data.map((d)=>{
             serial++;
           return (
-          <tr key={serial} class="tr-data">
+          <tr key={serial} className="tr-data">
             <td className="serial-cell">{serial}</td>
             <td>{d.purpose}</td>
             <td>{d.expense}</td>
@@ -113,7 +113,7 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
       console.log(imageUrl);
       }
 
-    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue , imageUrl},{withCredentials: true})
+    await axios.post(url + "/expense-data",{ purpose : input.purposeValue , expense : input.expenseValue , imageUrl , date : new Date()},{withCredentials: true})
     .then((postRes) => {
       console.log(postRes.data)
 
@@ -181,6 +181,38 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
 
   }
 
+  function handleSort(e){
+
+    e.preventDefault();
+
+    if(e.target.value == "oldest first"){
+
+      let d = data;
+      d.sort((a,b)=>{
+        console.log(new Date(a.date) - new Date(b.date))
+        return new Date(a.date) - new Date(b.date);
+      })
+
+      console.log(d);
+    
+      setData(d)
+    
+    }
+
+    else if(e.target.value == "newest first"){
+
+      let d = data;
+      d.sort((a,b)=>{
+        return new Date(a.date) - new Date(b.date)
+      }).reverse()
+
+      console.log(d);
+
+      setData(d)
+
+    }
+  }
+
   return(
     <div id="page">
     <header><span id="expense-tracker-heading">
@@ -222,11 +254,10 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
     </form>
 
     <div id="extra-options">
-      <label for="sortby-select">
+      <label htmlFor="sortby-select">
         Sort by:
       </label>
-      <select id="sortby-select">
-        <span>mcwde</span>
+      <select id="sortby-select" onChange={handleSort}>
         <option>oldest first</option>
         <option>newest first</option>
         <option>A-Z</option>

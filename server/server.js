@@ -23,7 +23,8 @@ mongoose.connect(uri,
                 const dataSchema = mongoose.Schema({
                     purpose : String ,
                     expense : String ,
-                    imageUrl : String
+                    imageUrl : String,
+                    date : Object
                 },
                 {
                     versionKey : false
