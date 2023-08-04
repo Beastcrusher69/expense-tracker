@@ -187,30 +187,46 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
 
     if(e.target.value == "oldest first"){
 
-      let d = data;
+      let d = [...data];
       d.sort((a,b)=>{
-        console.log(new Date(a.date) - new Date(b.date))
         return new Date(a.date) - new Date(b.date);
       })
-
-      console.log(d);
-    
-      setData(d)
-    
+      setData(d);
     }
 
     else if(e.target.value == "newest first"){
 
-      let d = data;
+      let d = [...data];
       d.sort((a,b)=>{
         return new Date(a.date) - new Date(b.date)
-      }).reverse()
+      }).reverse()      
+      setData(d)
+    }
+
+    else if(e.target.value == "A-Z"){
+
+      let d = [...data];
+      d.sort((a,b)=>{
+        return a.purpose.localeCompare(b.purpose);
+      });
+      setData(d)
+
+      console.log(d);
+    }
+
+    else if(e.target.value == "Z-A"){
+
+      let d = [...data];
+      d.sort((a,b)=>{
+        return a.purpose.localeCompare(b.purpose);
+      }).reverse();
+      setData(d)
 
       console.log(d);
 
-      setData(d)
-
     }
+
+
   }
 
   return(
@@ -231,26 +247,28 @@ let [imagePreviewStyle , setImagePreviewStyle ] = useState({display : 'none'})
     
     <div id="whole-wrapper">
     <form id="input-wrap">
-      <input  
+      <input  id = "purpose-input"
               onChange={(e)=>{ e.preventDefault() ;
                setInput({...input , purposeValue:e.target.value})}} 
                name="purpose" 
                placeholder='purpose' />
-      <input  
+      <input    id = "expense-input"
                 onChange={(e)=>{ e.preventDefault() ;
                 setInput({...input ,expenseValue:e.target.value})}} 
                 name="expense" 
                 placeholder='expense' />
 
 
-      <div id="upload-wrap">
-      <label htmlFor="image-input" id="upload-image">upload image</label>
-      <p id="image-preview" style={imagePreviewStyle}>{imagePreview}</p>
-      <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files[0]); setImagePreview(e.target.files[0].name); setImagePreviewStyle({display : 'block'}) ; console.log(e.target.files)}}/>            
+      <div id="upload-and-enter-wrap">
+        <div id="upload-wrap">
+        <label htmlFor="image-input" id="upload-image">upload image</label>
+        <p id="image-preview" style={imagePreviewStyle}>{imagePreview}</p>
+        <input type="file" id="image-input" onChange={(e)=>{ setImage(e.target.files[0]); setImagePreview(e.target.files[0].name); setImagePreviewStyle({display : 'block'}) ; console.log(e.target.files)}}/>            
+        </div>
+        <button id="enter" 
+                onClick={handleSubmit}
+                >Enter</button>
       </div>
-      <button id="enter" 
-              onClick={handleSubmit}
-              >Enter</button>
     </form>
 
     <div id="extra-options">
