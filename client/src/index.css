@@ -74,6 +74,14 @@ a{
     #enter:active{
         background-color:var(--green2);
     }
+
+    input{
+        width:30%;
+        padding:8px ;
+        height:30px;
+        border:0.5px solid black;       
+    }
+
     
     #purpose-input,#expense-input{
         width:33%;
@@ -275,6 +283,7 @@ a{
 
     .auth-input{
         height:45px;
+        padding: 10px;
         border-color:rgb(179, 169, 169);
     }
 
@@ -425,7 +434,7 @@ a{
             display:block;
         }
 
-        form{
+        #input-wrap{
             display: flex;
             flex-direction:column;
             height:90px;
